@@ -1,0 +1,75 @@
+/* properties main */
+.properties-popup{
+	width: 300px;
+	height: 100%;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fcfcfc;
+}
+.properties-popup.left{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.properties-popup.right{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.properties-header-info{
+	padding: 5px;
+	background-color:  rgba(0,0,0,.02);
+	box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	border-left: 0;
+	border-right: 0;
+	text-transform: uppercase;
+}
+/* properties positioning */
+.properties-side{
+	height: 30px;
+}
+.properties-left, .properties-right, .properties-close{
+	width: 30px;
+	height: 30px;
+	float: left;
+	background-position: center center;
+	background-repeat: no-repeat;
+	opacity: .8;
+	cursor: pointer;
+	margin: 0 5px;
+}
+.properties-left:hover, .properties-right:hover, .properties-close:hover,
+.properties-left.selected, .properties-right.selected, .properties-close.selected{
+	opacity: 1;
+}
+.properties-left{
+	background-image: url('../../images/properties-left.png');
+}
+.properties-right{
+	background-image: url('../../images/properties-right.png');
+}
+.properties-close{
+	background-image: url('../../images/properties-close.png');
+	float: right;
+}
+/* properties header */
+.properties-header{
+	padding: 5px;
+}
+.properties-header-item{
+	display: inline-block;
+	width: 130px;
+	padding: 5px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.properties-header-item:hover, .properties-header-item.selected{
+	border: 1px solid #aaa;
+	background-color: #ddd;
+}
+/* properties header - add item */
+.properties-header-additem{
+	display: none;
+}

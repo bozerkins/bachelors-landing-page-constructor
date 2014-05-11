@@ -1,0 +1,64 @@
+.controls-menu{
+	width: 300px;
+	height: 100%;
+	border-right: 1px solid black;
+	box-shadow: 0 0 5px black;
+}
+.controls-menu .basic{
+	width: 100%;
+	height: 40px;
+	line-height: 30px;
+}
+.controls-menu .basic .position{
+	height: 30px;
+	float: left;
+	padding: 5px;
+	cursor: pointer;
+}
+.controls-menu .basic .position .move:hover{
+	text-decoration: underline;
+}
+.controls-menu .basic .position .move{
+	display: inline-block;
+}
+.controls-menu .basic .closing{
+	height: 30px;
+	float: right;
+	padding: 5px;
+	cursor: pointer;
+}
+.controls-menu .basic .closing:hover{
+	text-decoration: underline;
+}
+.first-group{
+	width: 100%;
+}
+.first-group .namer{
+	margin: 5px 0;
+	padding: 3px;
+	border: 1px solid black;
+	border-left: 0;
+	border-right: 0;
+	text-transform: uppercase;
+}
+.first-group .caller{
+	width: 100%;
+}
+.first-group .caller .caller-change{
+	clear: both;
+	padding: 10px 5px;
+	height: 20px;
+}
+.first-group .caller .caller-change .caller-change-title{
+	float: left;
+	height: 100%;
+	line-height: 20px;
+}
+.first-group .caller .caller-change .caller-change-option{
+	float: right;
+	height: 100%;
+	line-height: 20px;
+}
+.first-group .finisher{
+	margin: 10px 5px;
+}
