@@ -4,6 +4,12 @@
 	border-right: 1px solid black;
 	box-shadow: 0 0 5px black;
 }
+.controls-menu.left{
+	float: left;
+}
+.controls-menu.right{
+	float: right;
+}
 .controls-menu .basic{
 	width: 100%;
 	height: 40px;
