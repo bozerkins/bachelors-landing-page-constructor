@@ -1,3 +1,27 @@
+//<script id="template-controls-add-element" type="text/template">
+//	<div class="caller-el"><%=title%></div>
+//	<div class="caller-el-type">
+//		<% _.each(elements, function(item){ %>
+//			<div class="caller-el-type-el" data-group="<%=name%>" data-name="<%=item.name%>"><%=item.title%></div>			
+//		<% }) %>
+//	</div>
+//</script>
+//<script id="template-controls-attribute" type="text/template">
+//	<div class="caller-change">
+//		<div class="caller-change-title"><%=title%></div>
+//		<div class="caller-change-option">
+//			<% if (type === 'text') { %>
+//				<input type="text" name="<%=name%>" value="<%=typeof value !== 'undefined' ? value : '' %>">
+//			<% } %>
+//		</div>
+//	</div>
+//</script>
+//<script id="template-controls-attribute-controls" type="text/template">
+//	<div class="finisher">
+//		<input type="button" value="Back" class="back">&nbsp;<input type="button" value="Create" class="create">
+//	</div>
+//</script>
+
 // get templates
 var sideMenuTemplate = _.template($('#template-controls-menu').html());
 var sideMenuGroupTemplate = _.template($('#template-controls-add-element').html());

@@ -6,6 +6,7 @@ requirejs.config({
 		backboneSync: './external/backbone-sync',
 		backboneAjax: './external/backbone-ajax',
 		underscoreLib: './external/underscore-min',
+		bootstrapLib: './external/bootstrap-min',
 		// plugins
 		pleaseWaitPlug: './external/plugins/please-wait'
     },
@@ -13,6 +14,9 @@ requirejs.config({
 		'backboneLib' : {
 			deps: ['underscoreLib', 'jqueryLib'], // backbone deps
             exports: 'Backbone'
+		},
+		'bootstrapLib' : {
+			deps: ['jqueryLib']
 		},
 		'pleaseWaitPlug' : {
 			deps: ['jqueryLib'],
@@ -25,7 +29,7 @@ requirejs.config({
 			deps: ['backboneLib', 'pleaseWaitPlug'] // sync module deps - backbone itself
 		},
         'core': {
-			deps: ['backboneSync', 'backboneAjax'] // core to load everything
+			deps: ['backboneSync', 'backboneAjax', 'bootstrapLib'] // core to load everything
         }
 	},
 	urlArgs: "bust=" +  (new Date()).getTime()
@@ -33,16 +37,30 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs([
-	'router/index', 
-	'library/interaction/mouse', 
-	'collection/clnMenu', 
+	'library/interaction/mouse',
+	'view/collection/viewControl',
+	'view/viewWorkArea',
+	'collection/clnControl',
 	'core'
-], function (router, mouse, clnMenu) {
-	// show dynamic menu collection
-	var Menu = new clnMenu();
-	var MenuView = new viewMenu();
-	// bind basic mouse events
-	console.log(mouse);
-	// start routing
-	var Router = new router();
+], function (mouse, viewControl, viewWorkArea, clnControl) {
+	
+	var viewWorkAreaObject = new viewWorkArea();
+	viewWorkAreaObject.append();
+	
+	var clnControlObject = new clnControl;
+	var viewControlsObject = null;
+	clnControlObject.fetch({
+		success: function(){
+			viewControlsObject = new viewControl({collection: clnControlObject});
+			viewControlsObject.render().append();
+			viewControlsObject.toggle();
+		}
+	});
+	
+	mouse.addRightClick(function(event){
+		viewWorkAreaObject.isElementInside(event.target) ? viewControlsObject.adjust('immortal') : viewControlsObject.adjust('usual');
+		
+		viewControlsObject.open().position(event.pageX, event.pageY);
+		return false;
+	});
 });

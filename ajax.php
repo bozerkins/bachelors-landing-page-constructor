@@ -17,23 +17,27 @@ function menuFetchCollection()
 	return array(
 		array(
 			'id' => 1,
-			'name' => 'Select item',
-			'actions' => array(),
+			'title' => 'Select item',
+			'forUsual' => 1,
+			'forImmortal' => 0,
 		),
 		array(
 			'id' => 2,
-			'name' => 'Add item',
-			'actions' => array(),
+			'title' => 'Add item',
+			'forUsual' => 1,
+			'forImmortal' => 1,
 		),
 		array(
 			'id' => 3,
-			'name' => 'Change item',
-			'actions' => array(),
+			'title' => 'Change item',
+			'forUsual' => 1,
+			'forImmortal' => 0,
 		),
 		array(
 			'id' => 4,
-			'name' => 'Remove item',
-			'actions' => array(),
+			'title' => 'Remove item',
+			'forUsual' => 1,
+			'forImmortal' => 0,
 		),
 	);
 }
@@ -49,7 +53,7 @@ $requirer = array_key_exists('requirer', $_GET) ? $_GET['requirer'] : NULL;
 $action = array_key_exists('method', $_GET) ? $_GET['method'] : NULL;
 $type = array_key_exists('type', $_GET) ? $_GET['type'] : NULL;
 
-if ($type === 'menu') {
+if ($type === 'control') {
 	if ($action === 'read') {
 		if ($requirer === 'collection') {
 			displayJson(menuFetchCollection());

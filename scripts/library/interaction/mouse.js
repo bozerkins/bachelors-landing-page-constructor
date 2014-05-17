@@ -1,6 +1,6 @@
 define([
 ], function () {
-	function Mouse(){
+	var Mouse = function(){
 		var LEFT_MOUSE_INDEX = 1;
 		var MIDDLE_MOUSE_INDEX = 2;
 		var RIGHT_MOUSE_INDEX = 3;
@@ -32,6 +32,6 @@ define([
 		this.getElement = function(element){
 			return (element ? element : $(document));
 		};
-	}
+	};
 	return new Mouse();
 });
