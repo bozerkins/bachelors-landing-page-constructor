@@ -52,3 +52,10 @@ html, body{
 .page-header{
 	margin-top: 20px;
 }
+.menu-element-group-item{
+	text-indent: 15px;
+	cursor: pointer;
+}
+.menu-element-group-item:hover{
+	text-decoration: underline;
+}

@@ -1,9 +1,9 @@
-<%
-console.log(groups);
-%>
+<% console.log(groups) %>
 <% _.each(groups, function(group, gkey) { %>
-	<b><%=group.title%></b><br>
-	<% _.each(group.elements, function(el, ekey) { %>
-		&nbsp;&nbsp;<%=el.title%><br>
-	<% }); %>
+	<div class="menu-element-group">
+		<b><%=group.title%></b>
+		<% _.each(group.elements, function(el, ekey) { %>
+		<div class="menu-element-group-item" data-group_id="<%=group.id%>" data-id="<%=el.id%>"><%=el.title%></div>
+		<% }); %>
+	</div>
 <% }); %>

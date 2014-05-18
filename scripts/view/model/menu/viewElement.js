@@ -11,6 +11,10 @@ define([
 	  
 	  template: _.template(tpl),
 	  
+	  events: {
+		  'click .menu-element-group-item':	'selectElement'
+	  },
+	  
 	  parent: null,
 	  
 	  initialize: function(options) {
@@ -20,7 +24,18 @@ define([
 	  },
 
 	  render: function() {
+		  this.parent.setTitle('add element');
 		  this.$el.show();
+	  },
+	  
+	  selectElement: function(event) {
+		  var selectedElement = $(event.target);
+		  var mdlGroupObject = this.collection.find(function(item){
+			  return item.id === selectedElement.data('group_id');
+		  });
+		  var mdlElementObject = mdlGroupObject.get('elements').find(function(item){
+			  return item.id === selectedElement.data('id');
+		  });
 	  }
 
 	});

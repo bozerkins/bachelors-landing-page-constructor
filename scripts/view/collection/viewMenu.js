@@ -48,6 +48,12 @@ define([
 //			}, this);
 			return this; // returning this for chaining..	
 		},
+		
+		setTitle: function(title, subText) {
+			this.$el.find('.menu-container-title').text(title);
+			subText && this.$el.find('.menu-container-title-element').text(title);
+			
+		},
 	  
 		append: function() {
 			$(document.body).append(this.el);
