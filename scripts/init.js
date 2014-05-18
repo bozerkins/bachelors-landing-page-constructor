@@ -40,9 +40,13 @@ requirejs([
 	'library/interaction/mouse',
 	'view/collection/viewControl',
 	'view/viewWorkArea',
+	'view/collection/viewMenu',
 	'collection/clnControl',
 	'core'
-], function (mouse, viewControl, viewWorkArea, clnControl) {
+], function (mouse, viewControl, viewWorkArea, viewMenu, clnControl) {
+	
+	var viewMenuObject = new viewMenu();
+	viewMenuObject.render().append();
 	
 	var viewWorkAreaObject = new viewWorkArea();
 	viewWorkAreaObject.append();
@@ -51,15 +55,19 @@ requirejs([
 	var viewControlsObject = null;
 	clnControlObject.fetch({
 		success: function(){
-			viewControlsObject = new viewControl({collection: clnControlObject});
+			viewControlsObject = new viewControl({
+				collection: clnControlObject, 
+				area: viewWorkAreaObject,
+				menu: viewMenuObject
+			});
 			viewControlsObject.render().append();
 			viewControlsObject.toggle();
 		}
 	});
 	
 	mouse.addRightClick(function(event){
-		viewWorkAreaObject.isElementInside(event.target) ? viewControlsObject.adjust('immortal') : viewControlsObject.adjust('usual');
-		
+		viewControlsObject.area.setTarget(event.target);
+		viewControlsObject.area.isElementInside() ? viewControlsObject.adjust('usual') : viewControlsObject.adjust('immortal');
 		viewControlsObject.open().position(event.pageX, event.pageY);
 		return false;
 	});

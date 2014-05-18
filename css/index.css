@@ -16,6 +16,8 @@ html, body{
 /** controls styling **/
 .main-application-controls{
 	position: absolute;
+	top: 0;
+	left: 0;
 }
 .main-application-workarea{
 	width: 100%;
@@ -23,4 +25,30 @@ html, body{
 	padding: 0;
 	margin: 0;
 	position: relative;
+	z-index: 0;
+}
+.main-application-menues{
+	position: absolute;
+	display: none;
+	width: 300px;
+	height: 100%;
+	padding: 10px;
+	z-index: 999999;
+}
+.main-application-menues.left{
+	top: 0;
+	left: 0;
+}
+.main-application-menues.right{
+	top: 0;
+	right: 0;
+}
+.menu-container-close{
+	float: right;
+}
+.menu-container-buttons{
+	float: left;
+}
+.page-header{
+	margin-top: 20px;
 }

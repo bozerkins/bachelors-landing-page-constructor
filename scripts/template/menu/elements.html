@@ -1,0 +1,9 @@
+<%
+console.log(groups);
+%>
+<% _.each(groups, function(group, gkey) { %>
+	<b><%=group.title%></b><br>
+	<% _.each(group.elements, function(el, ekey) { %>
+		&nbsp;&nbsp;<%=el.title%><br>
+	<% }); %>
+<% }); %>

@@ -8,12 +8,20 @@ define([
 		tagName : 'nav',
 		className: 'main-application-controls dropdown',
 		template: _.template(tpl),
+		$target: null,
+		area: null,
+		menu: null,
+		
+		initialize: function(options) {
+			this.area = options.area;
+			this.menu = options.menu;
+		},
 		
 		render: function() {
-			console.log('yay! render!');
+			this.$target = null;
 			this.$el.append(this.template({}));
 			this.collection.each(function(mdl){
-				var view = new viewControlItem({ model: mdl });
+				var view = new viewControlItem({ model: mdl, parent: this});
 				this.getListElement().append(view.render().el); // calling render method manually..
 			}, this);
 			return this;
@@ -60,12 +68,6 @@ define([
 			return this;
 		},
 		
-		isInImmortalObjectList: function(item) {
-			if (item === $('body')){
-				console.log('body');
-			}
-		},
-		
 		adjust: function(type) {
 			if (type === 'immortal') {
 				this.adjustImmortal();
@@ -77,11 +79,17 @@ define([
 		},
 		
 		adjustImmortal: function() {
-			
+			console.log('immortal adjust');
+			this.collection.each(function(mdl){
+				mdl.get('forImmortal') ? mdl.set('display', true) : mdl.set('display', false);
+			});
 		},
 		
 		adjustUsual: function() {
-			
+			console.log('usual adjust');
+			this.collection.each(function(mdl){
+				mdl.get('forUsual') ? mdl.set('display', true) : mdl.set('display', false);
+			});
 		}
 	});
 	return Controls;
