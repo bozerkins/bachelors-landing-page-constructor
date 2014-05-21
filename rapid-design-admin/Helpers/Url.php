@@ -9,4 +9,11 @@ class Url extends \Core\General
 		$scriptName = self::$app->environment()->offsetGet('SCRIPT_NAME');
 		return $scriptName;
 	}
+	
+	public static function redirectBack()
+	{
+		$url = self::$app->environment()->offsetGet('HTTP_REFERER');
+		self::$app->redirect($url);
+		return;
+	}
 }

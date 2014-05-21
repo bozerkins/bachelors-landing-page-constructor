@@ -43,9 +43,29 @@ class Routes extends General
 			'Admin.Attributes',
 			'index',
 		),
+		'/admin/attributes/add/' => array(
+			'Admin.Attributes',
+			'add',
+			'post',
+		),
+		'/admin/attributes/change/:num' => array(
+			'Admin.Attributes',
+			'change',
+			'post',
+		),
 		'/admin/styles' => array(
 			'Admin.Styles',
 			'index',
+		),
+		'/admin/attributes/add/' => array(
+			'Admin.Attributes',
+			'add',
+			'post',
+		),
+		'/admin/attributes/change/:num' => array(
+			'Admin.Attributes',
+			'change',
+			'post',
 		),
 		'/admin/linking' => array(
 			'Admin.Linking',

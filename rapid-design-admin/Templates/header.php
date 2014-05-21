@@ -55,3 +55,12 @@
 		<?php endforeach; ?>
         </div>
 		  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		  <?php foreach($errors as $message) : ?>
+			  <div class="alert alert-warning"><?=$message; ?></div>
+		  <?php endforeach; ?>
+		  <?php foreach($messages as $message) : ?>
+			  <div class="alert alert-info"><?=$message; ?></div>
+		  <?php endforeach; ?>
+			<?php foreach($successes as $message) : ?>
+			  <div class="alert alert-success"><?=$message; ?></div>
+		  <?php endforeach; ?>

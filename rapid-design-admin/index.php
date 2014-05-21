@@ -1,9 +1,12 @@
 <?php
+session_cache_limiter(FALSE);
+session_start();
+
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim(array(
-    'debug' => true,
+    'debug' => TRUE,
 	'log.level' => \Slim\Log::DEBUG,
 	'mode' => 'development',
 	'templates.path' => './Templates'

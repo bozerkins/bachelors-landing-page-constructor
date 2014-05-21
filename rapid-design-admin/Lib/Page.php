@@ -6,12 +6,18 @@ class Page extends \Core\General
 {
 	const DEFAULT_TITLE = 'No title mentioned';
 	
+	protected $errorHandler = NULL;
 	protected $headerOptions = NULL;
 	protected $headerTemplate = 'header.php';
 	protected $footerOptions = NULL;
 	protected $footerTemplate = 'footer.php';
 	protected $bodyOptions = NULL;
 	protected $bodyTemplate = NULL;
+	
+	public function __construct()
+	{
+		$this->errorHandler = new Page\Error();
+	}
 	
 	public function header($options = array())
 	{
@@ -38,6 +44,27 @@ class Page extends \Core\General
 		);
 		$this->headerOptions['base_script_url'] = \Helpers\Url::getBaseUrl() . '/../';
 		$this->headerOptions['base_url'] = \Helpers\Url::getBaseUrl() . '/';
+		$this->headerOptions['errors'] = $this->errorHandler->get('errors') ?: array();
+		$this->headerOptions['messages'] = $this->errorHandler->get('messages') ?: array();
+		$this->headerOptions['successes'] = $this->errorHandler->get('successes') ?: array();
+		return $this;
+	}
+	
+	public function addError($string)
+	{
+		$this->errorHandler->add('errors', $string);
+		return $this;
+	}
+	
+	public function addMessage($string)
+	{
+		$this->errorHandler->add('messages', $string);
+		return $this;
+	}
+	
+	public function addSuccess($string)
+	{
+		$this->errorHandler->add('successes', $string);
 		return $this;
 	}
 	

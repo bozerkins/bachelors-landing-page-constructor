@@ -30,12 +30,12 @@ class Model extends General
 	
 	public function insert(array $data)
 	{
-		// to be filled
+		$this->db->insert($this->table, $data);
 	}
 	
 	public function update($id, array $data)
 	{
-		// to be filled
+		$this->db->update($this->table, array('id' => $id), $data);
 	}
 	
 	public function delete($id)

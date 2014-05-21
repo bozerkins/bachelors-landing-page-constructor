@@ -11,6 +11,7 @@ class Config
 		$this->applyConfig('General');
 		$this->applyConfig('Database');
 		$this->applyConfig('Routes');
+		$this->applyConfig('Attributes');
 	}
 	
 	protected function applyConfig($name)
