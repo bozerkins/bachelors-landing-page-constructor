@@ -1,6 +1,13 @@
+var ajaxCount = 0;
 $(document).ajaxStart(function(){
-	PleaseWait.show();
+	if (!ajaxCount) {
+		PleaseWait.show();
+	}
+	ajaxCount++;
 });
 $(document).ajaxStop(function(){
-	PleaseWait.hide();
+	ajaxCount--;
+	if (!ajaxCount) {
+		PleaseWait.hide();
+	}
 });

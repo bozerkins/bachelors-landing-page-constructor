@@ -38,12 +38,13 @@ requirejs.config({
 // Start the main app logic.
 requirejs([
 	'library/interaction/mouse',
+	'model/mdlElementChange',
 	'view/collection/viewControl',
 	'view/viewWorkArea',
 	'view/collection/viewMenu',
 	'collection/clnControl',
 	'core'
-], function (mouse, viewControl, viewWorkArea, viewMenu, clnControl) {
+], function (mouse, mdlElementChange, viewControl, viewWorkArea, viewMenu, clnControl) {
 	
 	var viewMenuObject = new viewMenu();
 	viewMenuObject.render().append();
@@ -55,11 +56,15 @@ requirejs([
 	var viewControlsObject = null;
 	clnControlObject.fetch({
 		success: function(){
+			// create
 			viewControlsObject = new viewControl({
 				collection: clnControlObject, 
 				area: viewWorkAreaObject,
-				menu: viewMenuObject
+				menu: viewMenuObject,
+				mdlElement: new mdlElementChange()
 			});
+			
+			// render
 			viewControlsObject.render().append();
 			viewControlsObject.toggle();
 		}

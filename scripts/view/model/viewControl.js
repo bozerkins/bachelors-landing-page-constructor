@@ -1,4 +1,9 @@
-// model
+/**
+ * 
+ * in this mode acting is defined
+ * everything that is clicked - goes from here to wherever
+ * (Add, Select, Change, Delete)
+ */
 define([
 	'core'
 ], function () {
@@ -12,7 +17,7 @@ define([
 			'click' : 'act'
 		},
 		
-		parent: this,
+		parent: null,
 		
 		initialize: function(options) {
 			this.parent = options.parent || null;
@@ -32,7 +37,7 @@ define([
 			console.log('acting...');
 			var action = this.model.get('action');
 			if (action === 'add') {
-				this.parent.menu.children.menuElement.render();
+				this.parent.menu.children.elements.render();
 				this.parent.menu.$el.show();
 			}
 			event.preventDefault();

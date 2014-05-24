@@ -6,10 +6,15 @@ define([
 		tagName : 'div',
 		className: 'main-application-workarea',
 		$target: null,
+		parent: null,
 		
 		append: function() {
 			$(document.body).append(this.el);
 			return this;
+		},
+		
+		setParent: function(parentObject) {
+			this.parent = parentObject;
 		},
 		
 		setTarget: function(item) {

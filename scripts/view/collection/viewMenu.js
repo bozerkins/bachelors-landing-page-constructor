@@ -1,12 +1,11 @@
 // model
 define([
-	'view/model/menu/viewElement',
-	'view/model/menu/viewAttribute',
-	'view/model/menu/viewStyle',
-	'collection/menu/clnElementGroup',
+	'view/collection/structure/viewGroup',
+	'view/collection/structure/viewAttribute',
+	'view/collection/structure/viewStyle',
 	'text!template/menu/container.html',
 	'core'
-], function (viewElement, viewAttribute, viewStyle, clnElementGroup, tpl) {
+], function (viewGroup, viewAttribute, viewStyle, tpl) {
 	var Menu = Backbone.View.extend({
 		
 		tagName: "div",
@@ -23,29 +22,26 @@ define([
 		
 		children: {},
 		
+		parent: null,
+		
 		initialize: function() {
-			var _this = this;
 			// create by template
 			this.$el.append(this.template({}));
-			var clnElementGroupObject = new clnElementGroup();
-			clnElementGroupObject.fetch({
-				success: function(){
-					_this.children.menuElement = new viewElement({collection: clnElementGroupObject, parent: _this});
-					_this.getControlsSelection().append(_this.children.menuElement.$el);
-				}
-			});
 			// create children views
-			this.children.menuAttribute = new viewAttribute({parent: this});
-			this.children.menuStyle = new viewStyle({parent: this});
+			this.children.elements = new viewGroup({parent: this});
+			this.children.attributes = new viewAttribute({parent: this});
+			this.children.styles = new viewStyle({parent: this});
 			// append children views
-			this.getControlsSelection().append(this.children.menuAttribute.$el);
-			this.getControlsSelection().append(this.children.menuStyle.$el);
+			this.getControlsSelection().append(this.children.elements.$el);
+			this.getControlsSelection().append(this.children.attributes.$el);
+			this.getControlsSelection().append(this.children.styles.$el);
+		},
+		
+		setParent: function(parentObject) {
+			this.parent = parentObject;
 		},
 		
 		render: function() {
-//			_.each(this.children, function(item, key){
-//				this.$el.append(item.$el);
-//			}, this);
 			return this; // returning this for chaining..	
 		},
 		

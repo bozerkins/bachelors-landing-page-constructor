@@ -1,5 +1,3 @@
-// config
-Backbone._localOption_methodSeparator = 'method=';
 // method itself
 Backbone.sync = function(method, model, options) {
 	console.log(arguments);
@@ -14,7 +12,7 @@ Backbone.sync = function(method, model, options) {
 	  params.url = _.result(model, 'url') || urlError();
 	}
 	if (params.url && method) {
-		params.url = params.url + Backbone._localOption_methodSeparator + method;
+		params.url = params.url + method;
 	}
 	// Ensure that we have the appropriate request data.
 	if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {

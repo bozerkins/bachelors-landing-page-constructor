@@ -1,93 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>BOST - dynamic layout tools</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>general web repo</title>
 		<link type="text/css" rel="stylesheet" href="css/normalize.css">
+		<!-- JQuery UI -->
 		<link type="text/css" rel="stylesheet" href="css/jquery-ui.css">
-		<link type="text/css" rel="stylesheet" href="css/modules/template.css">
-		<link type="text/css" rel="stylesheet" href="css/modules/list-popup.css">
-		<link type="text/css" rel="stylesheet" href="css/modules/properties-popup.css">
+		<!-- Bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- General styles -->
 		<link type="text/css" rel="stylesheet" href="css/index.css">
-		<script src="javascript/jquery-1.10.2.js"></script>
-		<script src="javascript/jquery-ui.js"></script>
-		<!-- elements -->
-		<script src="javascript/modules/template.js"></script>
-		<script src="javascript/modules/list-popup.js"></script>
-		<script src="javascript/modules/properties-popup.js"></script>
-		<script src="javascript/modules/mouse-click.js"></script>
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
 	</head>
 	<body>
-		<!-- templates -->
-		<div class="templates">
-			<aside class="properties-popup">
-				<nav class="properties-side">
-					<div class="properties-left" title="pin menu to the left side of the screen"></div>
-					<div class="properties-right" title="pin menu to the right side of the screen"></div>
-					<div class="properties-close" title="close menu"></div>
-				</nav>
-				<div class="properties-header-info">Info</div>
-				<ul class="properties-header-parent">
-					<li>Parent: document</li>
-				</ul>
-				<div class="properties-header-info">Select Item</div>
-				<header class="properties-header properties-header-additem">
-					<div class="properties-header-item block">Block</div>
-					<div class="properties-header-item paragraph">Paragraph</div>
-					<div class="properties-header-item title">Title</div>
-					<div class="properties-header-item link">Link</div>
-				</header>
-				<div class="properties-header-info">Property Groups</div>
-				<header class="properties-header properties-header-additem"></header>
-				<div class="properties-header-info">Properties</div>
-			</aside>
-		</div>
-			
-		<!-- test field, initialization -->
-		<script>
-			// properties menu
-			var propertiesMenu = new PropertiesPopup();
-			propertiesMenu.setSide('left');
-			propertiesMenu.getHeaderAddItem().selectItem('block');
-			propertiesMenu.getHeaderAddItem().show();
-//			propertiesMenu.hide();
-			$('body').append(propertiesMenu.getContainer());
-			// dynamic menu
-			var dynamicMenu = new ListPopup();
-			dynamicMenu.addElement('Select item', function(){
-				console.log('Select clicked');
-				dynamicMenu.hide();
-			});
-			dynamicMenu.addElement('Add item', function(){
-				console.log('Add clicked');
-				dynamicMenu.hide();
-				propertiesMenu.show();
-			});
-			dynamicMenu.addElement('Change item', function(){
-				console.log('Change clicked');
-				dynamicMenu.hide();
-			});
-			dynamicMenu.addElement('Remove item', function(){
-				console.log('Remove clicked');
-				dynamicMenu.hide();
-			});
-			$('body').append(dynamicMenu.getContainer());
-			var mouseClick = new MouseClick();
-			mouseClick.addLeftClick(function(event){
-				if (!(dynamicMenu.getContainer().is(event.target)) 
-						&& !$(event.target).closest(dynamicMenu.getContainer()).length 
-						&& dynamicMenu.visible()){
-					dynamicMenu.hide();
-				}
-				return true;
-			});
-			mouseClick.addRightClick(function(event){
-				if (dynamicMenu.visible()){
-					dynamicMenu.hide();
-				}else{
-					dynamicMenu.position(event.pageX, event.pageY);
-					dynamicMenu.show();
-				}
-			});
-		</script>
+		<script src="http://requirejs.org/docs/release/2.1.11/minified/require.js" data-main="scripts/init"></script>
 	</body>
 </html>

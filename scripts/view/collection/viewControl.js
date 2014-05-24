@@ -11,10 +11,14 @@ define([
 		$target: null,
 		area: null,
 		menu: null,
+		mdlElement: null,
 		
 		initialize: function(options) {
 			this.area = options.area;
+			this.area.setParent(this);
 			this.menu = options.menu;
+			this.menu.setParent(this);
+			this.mdlElement = options.mdlElement;
 		},
 		
 		render: function() {

@@ -4,7 +4,7 @@ define([
 ], function (mdl) {
 	var Library = Backbone.Collection.extend({
 		model: mdl,
-		url: 'ajax.php?requirer=collection&type=control&'
+		url: 'server/index.php/ajax/controls/'
 	});
 	return Library;
 });
