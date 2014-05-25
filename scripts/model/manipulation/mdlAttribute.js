@@ -4,7 +4,12 @@ define([
 
 	var Model = Backbone.Model.extend({
 		
-		idAttribute: 'id'
+		idAttribute: 'id',
+		
+		defaults: {
+			design_attribute_id: null,
+			attribute_value: null
+		}
 	});
 	return Model;
 });

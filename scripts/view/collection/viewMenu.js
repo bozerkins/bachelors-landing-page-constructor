@@ -56,6 +56,13 @@ define([
 			return this;
 		},
 		
+		hideChildren: function() {
+			_.each(this.children, function(val, key){
+				val.$el.hide();
+			});
+			return this;
+		},
+		
 		getControlsSelection: function() {
 			return this.$el.find('.menu-controls-selection');
 		},

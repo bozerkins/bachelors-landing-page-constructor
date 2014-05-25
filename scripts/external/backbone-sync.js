@@ -21,7 +21,8 @@ Backbone.sync = function(method, model, options) {
 	}
 
 	// Don't process data on a non-GET request.
-	params.processData = false;
+	// As far as we have POST requests only, process it anyways
+	params.processData = true;
 
 	// Make the request, allowing the user to override any Ajax options.
 	var xhr = options.xhr = Backbone.ajax(_.extend(params, options));

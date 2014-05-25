@@ -86,5 +86,15 @@ class Routes extends General
 			'read',
 			'post',
 		),
+		'/ajax/attributes/read' => array(
+			'Ajax.Attributes',
+			'read',
+			'post',
+		),
+		'/ajax/init/read' => array(
+			'Ajax.Init',
+			'read',
+			'post',
+		),
 	);
 }

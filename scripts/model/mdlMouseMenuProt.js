@@ -1,10 +1,10 @@
 define([
 	'core'
-], function () {		
-
+], function () {
 	var Model = Backbone.Model.extend({
 		
 		idAttribute: 'id'
+		
 	});
 	return Model;
 });

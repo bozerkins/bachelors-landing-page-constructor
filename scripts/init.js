@@ -37,15 +37,35 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs([
+	'model/mdlInitProt',
+	'view/viewInitProt',
+	
 	'library/interaction/mouse',
-	'model/mdlElementChange',
+	'model/manipulation/mdlElement',
 	'view/collection/viewControl',
 	'view/viewWorkArea',
 	'view/collection/viewMenu',
 	'collection/clnControl',
 	'core'
-], function (mouse, mdlElementChange, viewControl, viewWorkArea, viewMenu, clnControl) {
+], function (mdlInitProt, viewInitProt, mouse, mdlManipElement, viewControl, viewWorkArea, viewMenu, clnControl) {
 	
+	// global config
+	var conf = Backbone.Config = {};
+	// initalize
+	var mdlInitObj = new mdlInitProt();
+	mdlInitObj.fetch({
+		success: function() {
+			console.log(mdlInitObj);
+			conf.struct = mdlInitObj;
+			conf.view = new viewInitProt();
+			conf.view.render();
+		}
+	});
+	return;
+	
+	
+	
+	return;
 	var viewMenuObject = new viewMenu();
 	viewMenuObject.render().append();
 	
@@ -61,7 +81,7 @@ requirejs([
 				collection: clnControlObject, 
 				area: viewWorkAreaObject,
 				menu: viewMenuObject,
-				mdlElement: new mdlElementChange()
+				mdlElement: new mdlManipElement()
 			});
 			
 			// render

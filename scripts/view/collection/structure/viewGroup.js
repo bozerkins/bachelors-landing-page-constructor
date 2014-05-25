@@ -44,8 +44,8 @@ define([
 		  
 		  // proceed to the next step
 		  var controls = this.parent.parent;
-		  controls.mdlElement.setElementModel(mdlElementObject).setElementParentModel(null);
-		  controls.menu.children.attributes.render();
+		  controls.mdlElement.setDesignModel(mdlElementObject);
+		  controls.menu.hideChildren().children.attributes.render();
 	  }
 
 	});
