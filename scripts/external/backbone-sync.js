@@ -16,14 +16,16 @@ Backbone.sync = function(method, model, options) {
 	}
 	// Ensure that we have the appropriate request data.
 	if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {
-	  params.contentType = 'application/json';
-	  params.data = JSON.stringify(options.attrs || model.toJSON(options));
+//	  params.contentType = 'application/json';
+	  params.data = options.attrs || model.toJSON(options);
 	}
-
+	
 	// Don't process data on a non-GET request.
 	// As far as we have POST requests only, process it anyways
 	params.processData = true;
-
+	
+	console.log(params);
+	
 	// Make the request, allowing the user to override any Ajax options.
 	var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
 	model.trigger('request', model, xhr, options);

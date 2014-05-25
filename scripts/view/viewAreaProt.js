@@ -1,6 +1,7 @@
 define([
+	'view/viewTreeElementProt',
 	'core'
-], function(){
+], function(viewTreeElementProt){
 	var Controls = Backbone.View.extend({
 		
 		tagName : 'div',
@@ -39,6 +40,14 @@ define([
 		
 		_isElementConherent: function(item) {
 			return this.$el.find(item).length > 0 || this.$el.filter(item).length !== 0;
+		},
+		
+		renderIncompleteElement: function(){
+			var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
+			model.create(function(){
+				new viewTreeElementProt({model: model});
+			});
+			console.log(model);
 		}
 	});
 	return Controls;

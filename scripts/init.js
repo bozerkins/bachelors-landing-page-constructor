@@ -39,13 +39,6 @@ requirejs.config({
 requirejs([
 	'model/mdlInitProt',
 	'view/viewInitProt',
-	
-	'library/interaction/mouse',
-	'model/manipulation/mdlElement',
-	'view/collection/viewControl',
-	'view/viewWorkArea',
-	'view/collection/viewMenu',
-	'collection/clnControl',
 	'core'
 ], function (mdlInitProt, viewInitProt, mouse, mdlManipElement, viewControl, viewWorkArea, viewMenu, clnControl) {
 	
@@ -60,40 +53,5 @@ requirejs([
 			conf.view = new viewInitProt();
 			conf.view.render();
 		}
-	});
-	return;
-	
-	
-	
-	return;
-	var viewMenuObject = new viewMenu();
-	viewMenuObject.render().append();
-	
-	var viewWorkAreaObject = new viewWorkArea();
-	viewWorkAreaObject.append();
-	
-	var clnControlObject = new clnControl;
-	var viewControlsObject = null;
-	clnControlObject.fetch({
-		success: function(){
-			// create
-			viewControlsObject = new viewControl({
-				collection: clnControlObject, 
-				area: viewWorkAreaObject,
-				menu: viewMenuObject,
-				mdlElement: new mdlManipElement()
-			});
-			
-			// render
-			viewControlsObject.render().append();
-			viewControlsObject.toggle();
-		}
-	});
-	
-	mouse.addRightClick(function(event){
-		viewControlsObject.area.setTarget(event.target);
-		viewControlsObject.area.isElementInside() ? viewControlsObject.adjust('usual') : viewControlsObject.adjust('immortal');
-		viewControlsObject.open().position(event.pageX, event.pageY);
-		return false;
 	});
 });

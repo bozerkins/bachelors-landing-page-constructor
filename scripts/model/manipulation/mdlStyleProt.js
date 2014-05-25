@@ -4,7 +4,9 @@ define([
 
 	var Model = Backbone.Model.extend({
 		
-		idAttribute: 'id',
+		url: 'server/index.php/ajax/tree/styles/',
+		
+		idAttribute: 'design_style_id',
 		
 		defaults: {
 			design_style_id: null,

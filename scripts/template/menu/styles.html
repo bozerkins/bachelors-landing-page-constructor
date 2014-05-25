@@ -1,1 +1,11 @@
-styles
+<form class="form-inline" role="form">
+	<% _.each(styleList, function(item, key) { %>
+	  <div class="form-group form-padding">
+		  <label><%=item.title%></label><br>
+		  <input type="text" value="<%=item.style_value%>" data-id="<%=item.design_style_id%>" class="form-control menu-attributes-form-item" placeholder="Enter <%=item.title%>">
+	  </div>
+	<% }); %>
+	<div  class="form-padding">
+		<button type="button" class="btn btn-default menu-attributes-form-save">Save</button>
+	</div>
+</form>

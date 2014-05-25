@@ -31,6 +31,7 @@ class Model extends General
 	public function insert(array $data)
 	{
 		$this->db->insert($this->table, $data);
+		return $this->db->lastInsertId();
 	}
 	
 	public function update($id, array $data)

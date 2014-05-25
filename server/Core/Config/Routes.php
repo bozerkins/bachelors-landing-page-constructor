@@ -96,5 +96,20 @@ class Routes extends General
 			'read',
 			'post',
 		),
+		'/ajax/tree/create' => array(
+			'Ajax.Tree',
+			'create',
+			'post',
+		),
+		'/ajax/tree/attributes/update' => array(
+			'Ajax.Tree.Attributes',
+			'update',
+			'post',
+		),
+		'/ajax/tree/styles/update' => array(
+			'Ajax.Tree.Styles',
+			'update',
+			'post',
+		),
 	);
 }
