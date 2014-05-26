@@ -34,13 +34,25 @@ define([
 		},
 		
 		act: function(event) {
-			console.log('acting...');
 			var action = this.model.get('action');
+			var clickedParrent = Backbone.Config.view.viewAreaObj.getTargetModel();
 			if (action === 'add') {
-				console.log('action: add');
+				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = new Backbone.Config.struct.clnTreeObj.model({
+					parent_element_id: clickedParrent ? clickedParrent.get('id'): null
+				});
 				Backbone.Config.view.viewControlsObj.viewElementChoiceObj.render();
 				Backbone.Config.view.viewControlsObj.$el.show();
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
+			}
+			if (action === 'change') {
+				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
+				Backbone.Config.view.viewControlsObj.viewAttributeChoiceObj.render();
+				Backbone.Config.view.viewControlsObj.$el.show();
+				Backbone.Config.view.viewMouseMenuObj.$el.hide();
+			}
+			if (action === 'remove') {
+				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
+				Backbone.Config.view.viewAreaObj.renderIncompleteElement();
 			}
 			event.preventDefault();
 		}

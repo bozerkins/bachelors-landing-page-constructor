@@ -15,4 +15,16 @@ class Tree extends \Core\Controller
 		));
 		$ajax->response($elementId)->render();
 	}
+	
+	public function update()
+	{
+		$ajax = new \Lib\Ajax();
+		
+		$designElementId = array_key_exists('design_element_id', $_POST) ? intval($_POST['design_element_id']) : NULL;
+		$mdlElement = new \Mdl\Tree\Element();
+		$elementId = $mdlElement->insert(array(
+			'design_element_id' => $designElementId,
+		));
+		$ajax->response($elementId)->render();
+	}
 }

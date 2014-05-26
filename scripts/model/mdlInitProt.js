@@ -18,7 +18,13 @@ define([
 		clnMouseMenuObj: null,
 		clnTreeObj: null,
 		
+		response : null,
+		
 		parse: function(response) {
+			this.response = response;
+			return [];
+		},
+		fillObjects: function(response) {
 			// create objects
 			this.clnGroupObj = new clnGroupProt(response.groupList);
 			this.clnElementObj = new clnElementProt(response.elementList);
@@ -40,10 +46,15 @@ define([
 					return _.contains(element.get('styleLinkList'), stl.get('id'));
 				}, this));
 			}, this);
-			// create tree object
-			this.clnTreeObj = new clnTreeProt();
 			
-			return [];
+			// create tree object
+			this.clnTreeObj = new clnTreeProt(response.treeList);
+			this.clnTreeObj.each(function(modelObject){
+				console.log(modelObject);
+				modelObject.initializeDesignElement();
+			});
+			
+			return this;
 		}
 	});
 	return Model;

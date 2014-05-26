@@ -35,6 +35,20 @@ class Init extends \Core\Controller
 		
 		$response['actionList'] = $this->app->environment()->config->get('controls');
 		
+		$mdlTreeElementMdl = new \Mdl\Tree\Element();
+		$mdlTreeAttributeMdl = new \Mdl\Tree\Attribute();
+		$mdlTreeStyleMdl = new \Mdl\Tree\Style();
+		$treeElements = $mdlTreeElementMdl->allTreeOrder() ?: array();
+		foreach($treeElements as &$treeElement) {
+			$treeElement->attributeList = $mdlTreeAttributeMdl->all(array(
+				'element_id' => $treeElement->id,
+			)) ?: array();
+			$treeElement->styleList = $mdlTreeStyleMdl->all(array(
+				'element_id' => $treeElement->id,
+			)) ?: array();
+		}
+		$response['treeList'] = $treeElements;
+		
 		$ajax->response($response)->render();
 	}
 }

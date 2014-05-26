@@ -9,7 +9,8 @@ define([
 		url: 'server/index.php/ajax/tree/',
 		idAttribute: 'id',
 		defaults: {
-			design_element_id: null
+			design_element_id: null,
+			parent_element_id: null
 		},
 
 		mdlElementObj: null,
@@ -36,12 +37,31 @@ define([
 			});
 		},
 		
+		update: function(callback) {
+			var _this = this;
+			this.clnAttributeObj.each(function(attr){
+				attr.set('element_id', _this.get('id'));
+				attr.save();
+			});
+			this.clnStyleObj.each(function(attr){
+				attr.set('element_id', _this.get('id'));
+				attr.save();
+			});
+			callback(this);
+		},
+		
 		initialize: function(options) {
-			this.clnAttributeObj = new clnAttributeProt();
-			this.clnStyleObj = new clnStyleProt();
+			this.clnAttributeObj = new clnAttributeProt(options.attributeList);
+			this.clnStyleObj = new clnStyleProt(options.styleList);
+		},
+		set: function(attributes, options) {
+			if (attributes.design_element_id) {
+				this.mdlElementObj = Backbone.Config.struct.clnElementObj.get(attributes.design_element_id);
+			}
+			Backbone.Model.prototype.set.apply(this, arguments);
+			return this;
 		},
 		initializeDesignElement: function(){
-			this.mdlElementObj = Backbone.Config.struct.clnElementObj.get(this.get('design_element_id'));
 			this.initializeDesignAttributes();
 			this.initializeDesignStyles();
 			return this;
@@ -49,30 +69,26 @@ define([
 		initializeDesignAttributes: function(){
 			var modelsToAdd = [];
 			this.mdlElementObj.clnAttributeObj.each(function(attr, key){
-				var modelFound = this.clnAttributeObj.find(attr.get('id'));
+				var modelFound = this.clnAttributeObj.get(attr.get('id'));
 				if (!modelFound) {
 					modelsToAdd.push(new this.clnAttributeObj.model({
-						design_attribute_id: attr.get('id'),
-						title: attr.get('title')
+						design_attribute_id: attr.get('id')
 					}));
 					return;
 				}
-				modelFound.set('title', attr.get('title'));
 			}, this);
 			this.clnAttributeObj.push(modelsToAdd);
 		},
 		initializeDesignStyles: function(model){
 			var modelsToAdd = [];
 			this.mdlElementObj.clnStyleObj.each(function(stl, key){
-				var modelFound = this.clnStyleObj.find(stl.get('id'));
+				var modelFound = this.clnStyleObj.get(stl.get('id'));
 				if (!modelFound) {
 					modelsToAdd.push(new this.clnStyleObj.model({
-						design_style_id: stl.get('id'),
-						title: stl.get('title')
+						design_style_id: stl.get('id')
 					}));
 					return;
 				}
-				modelFound.set('title', stl.get('title'));
 			}, this);
 			this.clnStyleObj.push(modelsToAdd);
 		}

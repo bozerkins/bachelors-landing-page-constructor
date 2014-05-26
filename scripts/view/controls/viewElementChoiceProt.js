@@ -21,16 +21,15 @@ define([
 	  },
 
 		render: function() {
+			Backbone.Config.view.viewControlsObj.hideChildren();
 			Backbone.Config.view.viewControlsObj.setTitle('add element');
 			this.$el.show();
 		},
 	  
 	  selectElement: function(event) {
-		  // get current model
-		  var collection = Backbone.Config.struct.clnTreeObj;
-		  collection.mdlIncompleteTreeItemObj = new collection.model({
-			  design_element_id: $(event.target).data('id')
-		  }).initializeDesignElement();
+		  Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj
+				.set({'design_element_id': $(event.target).data('id')})
+				.initializeDesignElement();
 		  this.$el.hide();
 		  Backbone.Config.view.viewControlsObj.viewAttributeChoiceObj.render();
 	  }

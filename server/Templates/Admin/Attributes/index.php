@@ -11,6 +11,7 @@
 					<option value='<?=$type; ?>' <?=$type === $item->type ? 'selected' : ''; ?>><?=$type; ?></option>
 					<?php endforeach; ?>
 				</select>
+			 <label for="inputEmail3"> Name:&nbsp;</label><input type="text" name="name" class="form-control"  placeholder="Name" value="<?=$item->name; ?>">
 		  <button type="submit" class="btn btn-default">Save</button>
 		  </div>
 		</form>
@@ -25,6 +26,7 @@
 					<option value='<?=$type; ?>'><?=$type; ?></option>
 					<?php endforeach; ?>
 				</select>
+			<label for="inputEmail3"> Name:&nbsp;</label><input type="text"  name="name" class="form-control"  placeholder="Name" value="">
 			<button type="submit" class="btn btn-default">Create</button>
 		 </div>
 	</form>

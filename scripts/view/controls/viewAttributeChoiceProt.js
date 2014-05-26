@@ -20,13 +20,13 @@ define([
 	  },
 
 	  render: function() {
-		  var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
-		  Backbone.Config.view.viewControlsObj.setTitle('Add attributes: ' + model.mdlElementObj.get('title'));
-		  var attrList = model.clnAttributeObj.toJSON();
-		  console.log(attrList);
-		  this.$el.children().remove();
-		  this.$el.append(this.template({attrList : attrList}));
-		  this.$el.show();
+			Backbone.Config.view.viewControlsObj.hideChildren();
+			var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
+			Backbone.Config.view.viewControlsObj.setTitle('Add attributes: ' + model.mdlElementObj.get('title'));
+			var attrList = model.clnAttributeObj.toJSON();
+			this.$el.children().remove();
+			this.$el.append(this.template({attrList : attrList}));
+			this.$el.show();
 	  },
 	  
 	  saveAttributes: function() {

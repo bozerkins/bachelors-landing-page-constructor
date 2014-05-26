@@ -3,17 +3,23 @@ define([
 	'core'
 ], function () {
 	var View = Backbone.View.extend({
-		
-	  initialize: function(options) {
-			this.setElement($('<'+this.model.mdlElementObj.get('tag')+'>'));
-			this.model.clnAttributeObj.each(function(attr){
-				this.$el.attr(attr.name, attr.attribute_value);
-			}, this);
-			this.model.clnAttributeObj.each(function(attr){
-				this.$el.attr(attr.name, attr.style_value);
-			}, this);
-			$(document).append(this.el);
-	  }
+
+	elementIdPrefix: 'element_',
+
+	initialize: function(options) {
+		this.setElement($('<'+this.model.mdlElementObj.get('tag')+'>'));
+		this.$el.attr('id', this.elementIdPrefix + this.model.get('id'));
+	},
+
+	render: function() {
+		this.model.clnAttributeObj.each(function(mdlAttributeObj){
+			this.$el.attr(mdlAttributeObj.get('name'), mdlAttributeObj.get('attribute_value'));
+		}, this);
+		this.model.clnStyleObj.each(function(mdlStyleObj){
+			this.$el.css(mdlStyleObj.get('name'), mdlStyleObj.get('style_value'));
+		}, this);
+		return this;
+	}
 	  
 	});
 	return View;

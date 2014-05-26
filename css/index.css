@@ -31,17 +31,20 @@ html, body{
 	position: absolute;
 	display: none;
 	width: 300px;
-	height: 100%;
+	min-height: 100%;
 	padding: 10px;
 	z-index: 999999;
+	background-color: #f5f5f5;
 }
 .main-application-menues.left{
 	top: 0;
 	left: 0;
+	border-right: 3px solid #eee;
 }
 .main-application-menues.right{
 	top: 0;
 	right: 0;
+	border-left: 3px solid #eee;
 }
 .menu-container-close{
 	float: right;

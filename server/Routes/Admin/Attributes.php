@@ -23,6 +23,7 @@ class Attributes extends \Core\Controller
 		$data = array();
 		$data['title'] = array_key_exists('title', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['title']) ? $_POST['title'] : NULL;
 		$data['type'] = array_key_exists('type', $_POST) && in_array($_POST['type'], $mdlAttribute->types()) ? $_POST['type'] : NULL;
+		$data['name'] = array_key_exists('name', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['name']) ? $_POST['name'] : NULL;
 		
 		$page = new \Lib\Page();
 		
@@ -34,6 +35,10 @@ class Attributes extends \Core\Controller
 		if (!$data['type']) {
 			$errors = TRUE;
 			$page->addError('Invalid type passed');
+		}
+		if (!$data['name']) {
+			$errors = TRUE;
+			$page->addError('Field is invalid or not properly filled: <b>' . 'name' . '</b>(a-z, spaces, dash, numbers)');
 		}
 		
 		if ($errors) {
@@ -62,6 +67,7 @@ class Attributes extends \Core\Controller
 		$data = array();
 		$data['title'] = array_key_exists('title', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['title']) ? $_POST['title'] : NULL;
 		$data['type'] = array_key_exists('type', $_POST) && in_array($_POST['type'], $mdlAttribute->types()) ? $_POST['type'] : NULL;
+		$data['name'] = array_key_exists('name', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['name']) ? $_POST['name'] : NULL;
 		
 		$page = new \Lib\Page();
 		
@@ -73,6 +79,10 @@ class Attributes extends \Core\Controller
 		if (!$data['type']) {
 			$errors = TRUE;
 			$page->addError('Invalid type passed');
+		}
+		if (!$data['name']) {
+			$errors = TRUE;
+			$page->addError('Field is invalid or not properly filled: <b>' . 'name' . '</b>(a-z, spaces, dash, numbers)');
 		}
 		
 		if ($errors) {

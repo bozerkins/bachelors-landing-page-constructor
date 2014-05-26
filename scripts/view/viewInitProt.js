@@ -13,7 +13,6 @@ define([
 		viewAreaObj: null,
 		
 		initialize: function() {
-			console.log('initializing...');
 			// most important object - first to init
 			this.viewAreaObj = new viewAreaProt();
 			this.$el.append(this.viewAreaObj.$el);
@@ -26,8 +25,7 @@ define([
 		},
 		
 		render: function(){
-			console.log('rendering...');
-			console.log(this.$el);
+			
 		}
 	});
 	return View;

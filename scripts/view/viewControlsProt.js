@@ -47,6 +47,13 @@ define([
 			return this;
 		},
 		
+		hideChildren: function() {
+			this.viewElementChoiceObj.$el.hide();
+			this.viewAttributeChoiceObj.$el.hide();
+			this.viewStyleChoiceObj.$el.hide();
+			return this;
+		},
+		
 		bindLeft: function() {
 			this.$el.removeClass('right').addClass('left');
 		},

@@ -101,6 +101,11 @@ class Routes extends General
 			'create',
 			'post',
 		),
+		'/ajax/tree/create' => array(
+			'Ajax.Tree',
+			'update',
+			'post',
+		),
 		'/ajax/tree/attributes/update' => array(
 			'Ajax.Tree.Attributes',
 			'update',

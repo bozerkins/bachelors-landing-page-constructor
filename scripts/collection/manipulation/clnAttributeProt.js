@@ -3,7 +3,7 @@ define([
 	'core'
 ], function (mdlAttributeProt) {
 	var Collection = Backbone.Collection.extend({
-		model: mdlAttributeProt,
+		model: mdlAttributeProt
 	});
 	return Collection;
 });

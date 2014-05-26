@@ -36,7 +36,14 @@ class Model extends General
 	
 	public function update($id, array $data)
 	{
-		$this->db->update($this->table, array('id' => $id), $data);
+		$this->updateMany(array(
+			'id' => $id,
+		), $data);
+	}
+	
+	public function updateMany(array $where, array $data)
+	{
+		$this->db->update($this->table, $where, $data);
 	}
 	
 	public function delete($id)

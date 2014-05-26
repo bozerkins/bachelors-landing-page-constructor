@@ -48,9 +48,13 @@ requirejs([
 	var mdlInitObj = new mdlInitProt();
 	mdlInitObj.fetch({
 		success: function() {
-			console.log(mdlInitObj);
+			// set global data object
 			conf.struct = mdlInitObj;
+			// render elements
+			mdlInitObj.fillObjects(mdlInitObj.response);
+			// set global view object
 			conf.view = new viewInitProt();
+			// render view
 			conf.view.render();
 		}
 	});
