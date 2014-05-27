@@ -10,7 +10,9 @@ class Element extends \Core\Model
 	{
 		$where = $parentElementId ? array(
 			'parent_element_id' => $parentElementId,
-		) : array();
+		) : array(
+			'parent_element_id' => 0,
+		);
 		$records = $this->all($where) ?: array();
 		foreach($records as $record){
 			$result[] = $record;

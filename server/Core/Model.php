@@ -48,6 +48,13 @@ class Model extends General
 	
 	public function delete($id)
 	{
-		// to be filled
+		$this->db->delete($this->table, array(
+			$this->primaryKey => $id,
+		));
+	}
+	
+	public function deleteMany(array $where)
+	{
+		$this->db->delete($this->table, $where);
 	}
 }

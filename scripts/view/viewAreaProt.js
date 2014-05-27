@@ -7,7 +7,7 @@ define([
 		tagName : 'div',
 		className: 'main-application-workarea',
 		$target: null,
-		views: [],
+		views: {},
 		initialize: function(){
 			var _this = this;
 			Backbone.Config.struct.clnTreeObj.each(function(mdlElementObj){
@@ -56,9 +56,11 @@ define([
 			return this.$el.find(item).length > 0 || this.$el.filter(item).length !== 0;
 		},
 		
-		renderIncompleteElement: function(){
+		renderIncompleteElement: function(model){
+			if (!model) {
+				model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
+			}
 			var _this = this;
-			var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
 			model.isNew() ? model.create(function(){
 				_this.addElementToTree(model);
 			}) : model.update(function(){
@@ -69,11 +71,11 @@ define([
 		
 		addElementToTree: function(modelObject) {
 			var viewObject = new viewTreeElementProt({model: modelObject});
-			this.views[modelObject.get('id')] = viewObject;
+			this.views[parseInt(modelObject.get('id'), 10)] = viewObject;
 			viewObject.render();
-			var parentId = modelObject.get('parent_element_id');
-			var parentElement = parentId ? $('#element_' + parentElement) : [];
-			parentElement.length ? parentElement.append(viewObject.$el) : this.$el.append(viewObject.$el);
+			var parentId = parseInt(modelObject.get('parent_element_id'), 10);
+			var viewParentObject = parentId ? this.views[parentId] : null;
+			viewParentObject ? viewParentObject.$el.append(viewObject.$el) : this.$el.append(viewObject.$el);
 			return this;
 		},
 		
@@ -83,7 +85,30 @@ define([
 		},
 		
 		removeElementFromTree: function(modelObject){
-			
+			var viewObject = this.views[parseInt(modelObject.get('id'), 10)];
+			if (!viewObject) {
+				return this;
+			}
+			// get elements with id
+			var childElementList = viewObject.$el.find('*').filter(function(){
+				return $(this).attr('id') ? true : false;
+			});
+			// get id list
+			var childElementIdList = [];
+			childElementList.each(function(){
+				childElementIdList.push(parseInt($(this).attr('id').replace('element_', ''), 10));
+			});
+			// remove view object list
+			_.each(childElementIdList, function(id, key) {
+				var viewObject = this.views[id];
+				viewObject.remove(); delete viewObject; delete this.views[id];
+				Backbone.Config.struct.clnTreeObj.get(id).destroyExtended();
+			}, this);
+			// remove current view object
+			viewObject.remove(); delete viewObject; delete this.views[parseInt(modelObject.get('id'), 10)];
+			modelObject.destroyExtended();
+			// end
+			return this;
 		}
 	});
 	return Controls;

@@ -9,6 +9,7 @@ define([
 		tagName : 'nav',
 		className: 'main-application-controls dropdown',
 		template: _.template(tpl),
+		delimiterItemHtml: 'aaa',
 		
 		initialize: function(options) {
 			this.$el.children().remove();
@@ -17,6 +18,7 @@ define([
 			collection.each(function(mdl){
 				var view = new viewMouseMenuItemProt({ model: mdl, parent: this});
 				this.$el.children('.dropdown-menu').first().append(view.render().el); // calling render method manually..
+				parseInt(mdl.get('delimiter'), 10) && this.$el.children('.dropdown-menu').first().append(view.renderDelimiter());
 			}, this);
 			this.bindMouseEvents();
 		},
@@ -54,6 +56,7 @@ define([
 			Backbone.Config.struct.clnMouseMenuObj.each(function(mdl){
 				mdl.get('forImmortal') ? mdl.set('display', true) : mdl.set('display', false);
 			});
+//			this.$el.find('.divider').hide();
 		},
 		
 		adjustUsual: function() {
@@ -61,6 +64,7 @@ define([
 			Backbone.Config.struct.clnMouseMenuObj.each(function(mdl){
 				mdl.get('forUsual') ? mdl.set('display', true) : mdl.set('display', false);
 			});
+//			this.$el.find('.divider').show();
 		},
 		
 		render: function() {

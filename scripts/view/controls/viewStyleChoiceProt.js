@@ -33,8 +33,6 @@ define([
 		  var items = this.$el.find('.menu-attributes-form-item');
 		  var values = [];
 		  var collection = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj.clnStyleObj;
-		  console.log(items);
-		  console.log(collection);
 		  _.each(items, function(item, key){
 			  var $item = $(item);
 			  var model = collection.get($item.data('id'));

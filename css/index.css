@@ -1,7 +1,8 @@
 /** general styling **/
 
 html, body{
-	width: 100%;
+	min-width: 100%;
+	min-height: 100%;
 	height: 100%;
 	padding: 0;
 	margin: 0;
@@ -64,4 +65,7 @@ html, body{
 }
 .form-padding{
 	padding: 10px;
+}
+.dropdown-menu{
+	min-width: inherit;
 }

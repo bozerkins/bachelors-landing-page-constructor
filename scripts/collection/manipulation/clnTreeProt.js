@@ -4,7 +4,8 @@ define([
 ], function (mdlTreeItem) {
 	var Collection = Backbone.Collection.extend({
 		model: mdlTreeItem,
-		mdlIncompleteTreeItemObj: null
+		mdlIncompleteTreeItemObj: null,
+		mdlPrototypeTreeItemObj: null
 	});
 	return Collection;
 });

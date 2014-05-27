@@ -101,11 +101,6 @@ class Routes extends General
 			'create',
 			'post',
 		),
-		'/ajax/tree/create' => array(
-			'Ajax.Tree',
-			'update',
-			'post',
-		),
 		'/ajax/tree/attributes/update' => array(
 			'Ajax.Tree.Attributes',
 			'update',
@@ -114,6 +109,21 @@ class Routes extends General
 		'/ajax/tree/styles/update' => array(
 			'Ajax.Tree.Styles',
 			'update',
+			'post',
+		),
+		'/ajax/tree/delete' => array(
+			'Ajax.Tree',
+			'delete',
+			'post',
+		),
+		'/ajax/tree/attributes/delete' => array(
+			'Ajax.Tree.Attributes',
+			'delete',
+			'post',
+		),
+		'/ajax/tree/styles/delete' => array(
+			'Ajax.Tree.Styles',
+			'delete',
 			'post',
 		),
 	);

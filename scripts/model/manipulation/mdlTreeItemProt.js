@@ -32,9 +32,31 @@ define([
 						attr.set('element_id', response);
 						attr.save();
 					});
+					// push model to collection if none added
+					!Backbone.Config.struct.clnTreeObj.get(model.get('id')) && Backbone.Config.struct.clnTreeObj.push(model);
 					callback(model);
 				}
 			});
+		},
+		
+		clone: function() {
+			var clone = Backbone.Model.prototype.clone.apply(this, arguments);
+			delete clone.mdlElementObj;
+			
+			// reset linking elements
+			clone.set('id', null);
+			clone.set('parent_element_id', null);
+			// bind actual element obj
+			clone.mdlElementObj = this.mdlElementObj;
+			// reset element id link
+			clone.clnAttributeObj.each(function(model, key){
+				model.set('element_id', null);
+			});
+			// reset element id link
+			clone.clnStyleObj.each(function(model, key){
+				model.set('element_id', null);
+			});
+			return clone;
 		},
 		
 		update: function(callback) {
@@ -48,6 +70,20 @@ define([
 				attr.save();
 			});
 			callback(this);
+		},
+		
+		destroyExtended: function() {
+			// delete attributes
+			_.each(_.clone(this.clnAttributeObj.models), function(model) {
+				model.destroy({data: model.toJSON()});
+			});
+			// delete styles
+			_.each(_.clone(this.clnStyleObj.models), function(model) {
+				model.destroy({data: model.toJSON()});
+			});
+			// delete model
+			this.destroy({data: this.toJSON()});
+			return this;
 		},
 		
 		initialize: function(options) {

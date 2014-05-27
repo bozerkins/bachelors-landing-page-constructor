@@ -6,8 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>general web repo</title>
 		<link type="text/css" rel="stylesheet" href="css/normalize.css">
-		<!-- JQuery UI -->
-		<link type="text/css" rel="stylesheet" href="css/jquery-ui.css">
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<!-- General styles -->
