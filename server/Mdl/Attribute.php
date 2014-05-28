@@ -28,4 +28,10 @@ class Attribute extends \Core\Model
 	{
 		return $this->attributeTypes;
 	}
+	
+	public function getTypeObject($type)
+	{
+		$className = "\\Mdl\\Attribute\\" . $type;
+		return new $className;
+	}
 }

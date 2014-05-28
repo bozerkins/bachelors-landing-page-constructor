@@ -12,7 +12,10 @@ define([
 	  template: _.template(tpl),
 	  
 	  events: {
-		  'click .menu-attributes-form-save' : 'saveAttributes'
+		  'click .menu-attributes-form-save' : 'saveAction',
+		  'click .menu-attributes-form-next' : 'nextAction',
+		  'click .menu-attributes-form-apply' : 'applyAction',
+		  'click .menu-controls-tab-styles' : 'switchAction'
 	  },
 	  
 	  initialize: function(options) {
@@ -22,11 +25,24 @@ define([
 	  render: function() {
 			Backbone.Config.view.viewControlsObj.hideChildren();
 			var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
-			Backbone.Config.view.viewControlsObj.setTitle('Add attributes: ' + model.mdlElementObj.get('title'));
 			var attrList = model.clnAttributeObj.toJSON();
 			this.$el.children().remove();
 			this.$el.append(this.template({attrList : attrList}));
+			this.renderDetails();
 			this.$el.show();
+	  },
+	  
+	  renderDetails: function() {
+		var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
+		  if (model.isNew()) {
+			  Backbone.Config.view.viewControlsObj.setTitle('Attributes: ' + model.mdlElementObj.get('title'));
+			  this.$el.find('.menu-attributes-nav').hide();
+			  this.$el.find('.menu-attributes-form-apply, .menu-attributes-form-save').hide();
+		  } else {
+			  Backbone.Config.view.viewControlsObj.setTitle('Element: ' + model.mdlElementObj.get('title'));
+			  this.$el.find('.menu-attributes-nav').show();
+			  this.$el.find('.menu-attributes-form-apply, .menu-attributes-form-save').show();
+		  }
 	  },
 	  
 	  saveAttributes: function() {
@@ -38,10 +54,33 @@ define([
 			  var model = collection.get($item.data('id'));
 			  model.set('attribute_value', $item.val());
 		  });
-		  // validation somewhere here
-		  // ... 
+		  collection.validateCollection();
+	  },
+	  
+	  switchToStyles: function() {
 		  this.$el.hide();
 		  Backbone.Config.view.viewControlsObj.viewStyleChoiceObj.render();
+	  },
+	  
+	  saveAction: function() {
+		  this.saveAttributes();
+		  this.$el.hide();
+		  Backbone.Config.view.viewControlsObj.$el.hide();
+		  Backbone.Config.view.viewAreaObj.renderIncompleteElement();
+	  },
+	  
+	  applyAction: function() {
+		  this.saveAttributes();
+		  Backbone.Config.view.viewAreaObj.updateElementToTree(Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj);
+	  },
+	  
+	  nextAction: function() {
+		  this.saveAttributes();
+		  this.switchToStyles();
+	  },
+	  
+	  switchAction: function() {
+		  this.switchToStyles();
 	  }
 
 	});

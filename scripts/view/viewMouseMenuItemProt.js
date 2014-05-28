@@ -63,15 +63,21 @@ define([
 			}
 			if (action === 'copy') {
 				var prototypeElementObj = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
-				Backbone.Config.struct.clnTreeObj.mdlPrototypeTreeItemObj = prototypeElementObj.clone();
+				Backbone.Config.struct.clnTreeObj.mdlPrototypeTreeItemObj = prototypeElementObj;
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			if (action === 'paste') {
 				var modelObject = Backbone.Config.struct.clnTreeObj.mdlPrototypeTreeItemObj;
 				if (modelObject) {
-					modelObject.set('parent_element_id', clickedParrent ? clickedParrent.get('id'): null);
-					Backbone.Config.view.viewAreaObj.renderIncompleteElement(modelObject);
+					modelObject.createClone({
+						data: {parent_element_id: clickedParrent ? clickedParrent.get('id'): null}
+					}, function(models){
+							_.each(models, function(mdlRecentlyCloned, key){
+								Backbone.Config.view.viewAreaObj.addElementToTree(mdlRecentlyCloned);
+							});
+						});
 				}
+				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			event.preventDefault();
 		}

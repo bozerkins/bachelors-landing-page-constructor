@@ -1,3 +1,7 @@
+<ul class="nav nav-tabs menu-attributes-nav">
+  <li class="active"><a href="#" class="menu-controls-tab-attributes">Attributes</a></li>
+  <li><a href="#" class="menu-controls-tab-styles">Styles</a></li>
+</ul>
 <form class="form-inline" role="form">
 	<% _.each(attrList, function(item, key) { %>
 	  <div class="form-group form-padding">
@@ -6,6 +10,8 @@
 	  </div>
 	<% }); %>
 	<div  class="form-padding">
+		<button type="button" class="btn btn-default menu-attributes-form-apply">Apply</button>
+		<button type="button" class="btn btn-default menu-attributes-form-next">Next</button>
 		<button type="button" class="btn btn-default menu-attributes-form-save">Save</button>
 	</div>
 </form>

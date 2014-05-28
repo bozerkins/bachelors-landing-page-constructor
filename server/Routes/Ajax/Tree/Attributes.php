@@ -27,4 +27,29 @@ class Attributes extends \Core\Controller
 		$ajax = new \Lib\Ajax();
 		$ajax->render();
 	}
+	
+	public function validateCollection() 
+	{
+		$ajax = new \Lib\Ajax();
+		
+		$attributeList = array_key_exists('attributeList', $_POST) && is_array($_POST['attributeList']) ? $_POST['attributeList'] : NULL;
+		
+		if (!$attributeList) {
+			$ajax->render();
+			return;
+		}
+		
+		$invalidAttributeIds = array();
+		$mdlAttribute = new \Mdl\Attribute();
+		foreach($attributeList as $attribute) {
+			if (!in_array($attribute['type'], $mdlAttribute->types())) {
+				continue;
+			}
+			$attributeTypeObject = $mdlAttribute->getTypeObject($attribute['type']);
+			if (!$attributeTypeObject->validate($attribute['attribute_value'])) {
+				$invalidAttributeIds[] = $attribute['design_attribute_id'];
+			}
+		}
+		$ajax->response($invalidAttributeIds)->render();
+	}
 }

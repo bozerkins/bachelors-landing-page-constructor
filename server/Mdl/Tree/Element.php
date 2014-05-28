@@ -22,4 +22,9 @@ class Element extends \Core\Model
 		}
 		return $result;
 	}
+	
+	public function mapId($item)
+	{
+		return $item->id;
+	}
 }

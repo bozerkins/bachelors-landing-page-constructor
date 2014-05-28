@@ -39,6 +39,23 @@ define([
 			});
 		},
 		
+		createClone: function(options, callback) {
+			if (!options.data) {
+				options.data = {};
+			}
+			options.data.element_id = this.get('id');
+			options.success = function(modelRecords){
+				var modelObjects = [];
+				_.each(modelRecords, function(item, key){
+					var model = new Backbone.Config.struct.clnTreeObj.model(item);
+					modelObjects.push(model);
+				});
+				Backbone.Config.struct.clnTreeObj.add(modelObjects);
+				callback && callback(modelObjects);
+			};
+			Backbone.sync('createClone', this, options);
+		},
+		
 		clone: function() {
 			var clone = Backbone.Model.prototype.clone.apply(this, arguments);
 			delete clone.mdlElementObj;

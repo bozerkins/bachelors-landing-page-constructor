@@ -18,6 +18,6 @@
 		<![endif]-->
 	</head>
 	<body>
-		<script src="http://requirejs.org/docs/release/2.1.11/minified/require.js" data-main="scripts/init"></script>
+		<script src="scripts/require.min.js" data-main="scripts/init"></script>
 	</body>
 </html>

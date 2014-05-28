@@ -126,5 +126,20 @@ class Routes extends General
 			'delete',
 			'post',
 		),
+		'/ajax/tree/createClone' => array(
+			'Ajax.Tree',
+			'createClone',
+			'post',
+		),
+		'/ajax/tree/attributes/validateCollection' => array(
+			'Ajax.Tree.Attributes',
+			'validateCollection',
+			'post',
+		),
+		'/ajax/tree/styles/validateCollection' => array(
+			'Ajax.Tree.Styles',
+			'validateCollection',
+			'post',
+		),
 	);
 }
