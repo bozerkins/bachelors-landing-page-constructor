@@ -21,6 +21,15 @@ class Routes extends General
 			'Admin.Groups',
 			'index',
 		),
+		'/admin/stylegroups' => array(
+			'Admin.StyleGroups',
+			'index',
+		),
+		'/admin/stylegroups/add/' => array(
+			'Admin.StyleGroups',
+			'add',
+			'post',
+		),
 		'/admin/elements' => array(
 			'Admin.Elements',
 			'index',
@@ -54,6 +63,10 @@ class Routes extends General
 			'post',
 		),
 		'/admin/styles' => array(
+			'Admin.Styles',
+			'index',
+		),
+		'/admin/styles/:num' => array(
 			'Admin.Styles',
 			'index',
 		),

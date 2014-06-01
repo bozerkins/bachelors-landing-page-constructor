@@ -3,12 +3,30 @@
   <li class="active"><a href="#" class="menu-controls-tab-styles">Styles</a></li>
 </ul>
 <form class="form-inline" role="form">
-	<% _.each(styleList, function(item, key) { %>
-	  <div class="form-group form-padding">
-		  <label><%=item.title%></label><br>
-		  <input type="text" value="<%=item.style_value%>" data-id="<%=item.design_style_id%>" class="form-control menu-attributes-form-item" placeholder="Enter <%=item.title%>">
-	  </div>
-	<% }); %>
+	<div class="panel-group" id="accordion">
+		<% _.each(items, function(item, key) { %>
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+				<h4 class="panel-title">
+				  <a data-toggle="collapse" data-target="#collapseItem_<%=item.id%>" href="#collapse">
+					<%=item.title %>
+				  </a>
+				</h4>
+			  </div>
+			  <div id="collapseItem_<%=item.id%>" class="panel-collapse collapse <%=item.error ? 'in' :''%>">
+				<div class="panel-body">
+				  <% _.each(item.styleList, function(styleItem, key) { %>
+					  <div class="form-group form-padding has-feedback <%=styleItem.error ? 'has-error' : '' %>">
+						  <label><%=styleItem.title%></label><br>
+						  <input type="text" value="<%=styleItem.style_value%>" data-id="<%=styleItem.design_style_id%>" 
+								 class="form-control menu-attributes-form-item" placeholder="Enter <%=styleItem.title%>">
+					  </div>
+					<% }); %>
+				</div>
+			  </div>
+			</div>
+		<% }); %>
+	</div>
 	<div  class="form-padding">
 		<button type="button" class="btn btn-default menu-styles-form-apply">Apply</button>
 		<button type="button" class="btn btn-default menu-styles-form-back">Back</button>

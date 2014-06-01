@@ -30,12 +30,10 @@ class Page extends \Core\General
 		$this->headerOptions = $options;
 		$this->headerOptions['menu'] = array(
 			array(
-				'Overview' => 'admin',	
-			),
-			array(
 				'Groups' => 'admin/groups',
 				'Elements' => 'admin/elements',
 				'Attributes' => 'admin/attributes',
+				'Style Groups' => 'admin/stylegroups',
 				'Styles' => 'admin/styles',
 			),
 			array(

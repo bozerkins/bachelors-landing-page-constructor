@@ -63,4 +63,10 @@ class Style extends \Core\Model
 		}
 		return TRUE;
 	}
+	
+	public function getTypeObject($type)
+	{
+		$className = "\\Mdl\\Style\\" . $type;
+		return new $className;
+	}
 }

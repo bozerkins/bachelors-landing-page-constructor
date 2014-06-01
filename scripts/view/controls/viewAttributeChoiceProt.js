@@ -45,7 +45,7 @@ define([
 		  }
 	  },
 	  
-	  saveAttributes: function() {
+	  saveAttributes: function(callback) {
 		  var items = this.$el.find('.menu-attributes-form-item');
 		  var values = [];
 		  var collection = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj.clnAttributeObj;
@@ -54,7 +54,14 @@ define([
 			  var model = collection.get($item.data('id'));
 			  model.set('attribute_value', $item.val());
 		  });
-		  collection.validateCollection();
+		  var _this = this;
+		  collection.validateCollection(function(valid){
+			  if (valid) {
+				  _this.render();
+				  return;
+			  }
+			  callback();
+		  });
 	  },
 	  
 	  switchToStyles: function() {
@@ -63,20 +70,27 @@ define([
 	  },
 	  
 	  saveAction: function() {
-		  this.saveAttributes();
-		  this.$el.hide();
-		  Backbone.Config.view.viewControlsObj.$el.hide();
-		  Backbone.Config.view.viewAreaObj.renderIncompleteElement();
+		  var _this = this;
+		  this.saveAttributes(function(){
+			_this.$el.hide();
+			Backbone.Config.view.viewControlsObj.$el.hide();
+			Backbone.Config.view.viewAreaObj.renderIncompleteElement();  
+		  });
 	  },
 	  
 	  applyAction: function() {
-		  this.saveAttributes();
-		  Backbone.Config.view.viewAreaObj.updateElementToTree(Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj);
+		  var _this = this;
+		  this.saveAttributes(function(){
+			Backbone.Config.view.viewAreaObj.updateElementToTree(Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj);
+			_this.render();
+		  });
 	  },
 	  
 	  nextAction: function() {
-		  this.saveAttributes();
-		  this.switchToStyles();
+		  var _this = this;
+		  this.saveAttributes(function(){
+			  _this.switchToStyles();
+		  });
 	  },
 	  
 	  switchAction: function() {

@@ -40,6 +40,28 @@ define([
 			return model ? model : null;
 		},
 		
+		getTargetView: function() {
+			var model = this.getTargetModel();
+			return model ? this.views[model.get('id')] : null;
+		},
+		
+		addSelectedHighlight: function() {
+			this.removeSelectedHighlight();
+			var view = this.getTargetView();
+			if (view) {
+				view.$el.addClass('targetElement');
+			} else {
+				this.$el.addClass('targetElement');
+			}
+			return this;
+		},
+		
+		removeSelectedHighlight: function() {
+			this.$el.find('*').removeClass('targetElement');
+			this.$el.removeClass('targetElement');
+			return this;
+		},
+		
 		isElementInside: function(target){
 			return this._isElementInside(target ? target : this.getTarget());
 		},

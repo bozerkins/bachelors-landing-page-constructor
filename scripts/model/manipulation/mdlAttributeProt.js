@@ -9,7 +9,9 @@ define([
 		idAttribute: 'design_attribute_id',
 		
 		defaults: {
-			attribute_value: null
+			design_attribute_id: null,
+			attribute_value: null,
+			error: null
 		},
 		
 		set: function(attributes, options) {

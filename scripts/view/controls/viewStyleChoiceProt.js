@@ -15,7 +15,8 @@ define([
 		  'click .menu-styles-form-save' : 'saveAction',
 		  'click .menu-styles-form-back' : 'backAction',
 		  'click .menu-styles-form-apply' : 'applyAction',
-		  'click .menu-controls-tab-attributes' : 'switchAction'
+		  'click .menu-controls-tab-attributes' : 'switchAction',
+		  'click #accordion a' : 'stopPropogation'
 	  },
 	  
 	  initialize: function(options) {
@@ -26,8 +27,23 @@ define([
 			Backbone.Config.view.viewControlsObj.hideChildren();
 			var model = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj;
 			var styleList = model.clnStyleObj.toJSON();
+			var items = Backbone.Config.struct.clnStyleGroupObj.toJSON();
+			_.each(items, function(item, key){
+				item.styleList = model.clnStyleObj.filter(function(styleItem){
+					return styleItem.get('style_group_id') === item.id;
+				});
+				item.styleList = _.map(item.styleList, function(styleItem, key){
+					return styleItem.toJSON();
+				});
+				item.error = _.filter(item.styleList, function(styleItem, key){
+					return styleItem.error;
+				}).length > 0;
+			});
+			items = _.filter(items, function(item){
+				return item.styleList.length > 0;
+			});
 			this.$el.children().remove();
-			this.$el.append(this.template({styleList : styleList}));
+			this.$el.append(this.template({items: items}));
 			this.renderDetails();
 			this.$el.show();
 	  },
@@ -47,7 +63,7 @@ define([
 		  }
 	  },
 	  
-	  saveStyles: function() {
+	  saveStyles: function(callback) {
 		  var items = this.$el.find('.menu-attributes-form-item');
 		  var values = [];
 		  var collection = Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj.clnStyleObj;
@@ -55,6 +71,14 @@ define([
 			  var $item = $(item);
 			  var model = collection.get($item.data('id'));
 			  model.set('style_value', $item.val());
+		  });
+		  var _this = this;
+		  collection.validateCollection(function(valid){
+			  if (valid) {
+				  _this.render();
+				  return;
+			  }
+			  callback();
 		  });
 	  },
 	  
@@ -64,24 +88,35 @@ define([
 	  },
 	  
 	  saveAction: function() {
-		  this.saveStyles();
-		  this.$el.hide();
-		  Backbone.Config.view.viewControlsObj.$el.hide();
-		  Backbone.Config.view.viewAreaObj.renderIncompleteElement();
+		  var _this = this;
+		   this.saveStyles(function(){
+				_this.$el.hide();
+				Backbone.Config.view.viewControlsObj.$el.hide();
+				Backbone.Config.view.viewAreaObj.renderIncompleteElement();
+		  });
 	  },
 	  
 	  applyAction: function() {
-		  this.saveStyles();
-		  Backbone.Config.view.viewAreaObj.updateElementToTree(Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj);
+		  var _this = this;
+		  this.saveStyles(function(){
+			  Backbone.Config.view.viewAreaObj.updateElementToTree(Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj);
+			_this.render();
+		  });
 	  },
 	  
 	  backAction: function() {
-		  this.saveStyles();
-		  this.switchToAttributes();
+		  var _this = this;
+		   this.saveStyles(function(){
+			_this.switchToAttributes();
+		  });
 	  },
 	  
 	  switchAction: function() {
 		  this.switchToAttributes();
+	  },
+	  
+	  stopPropogation: function(event) {
+		  event.preventDefault();
 	  }
 
 	});

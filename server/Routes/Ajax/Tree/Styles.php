@@ -27,4 +27,40 @@ class Styles extends \Core\Controller
 		$ajax = new \Lib\Ajax();
 		$ajax->render();
 	}
+	
+	public function validateCollection() 
+	{
+		$ajax = new \Lib\Ajax();
+		
+		$stylesList = array_key_exists('stylesList', $_POST) && is_array($_POST['stylesList']) ? $_POST['stylesList'] : NULL;
+		
+		if (!$stylesList) {
+			$ajax->render();
+			return;
+		}
+		
+		$invalidStyleIds = array();
+		$mdlStyle = new \Mdl\Style();
+		foreach($stylesList as $style) {
+			if (!$mdlStyle->hasTypesMatch($style['type'])) {
+				continue;
+			}
+			$typeObjects = array();
+			foreach($style['type'] as $typeName) {
+				$typeObjects[] = $mdlStyle->getTypeObject($typeName);
+			}
+			if ($style['style_value']) {
+				$result = FALSE;
+				foreach($typeObjects as $typeObject) {
+					$result = $result || $typeObject->validate($style['style_value']);
+				}
+			} else {
+				$result = TRUE;
+			}
+			if (!$result) {
+				$invalidStyleIds[] = $style['design_style_id'];
+			}
+		}
+		$ajax->response($invalidStyleIds)->render();
+	}
 }

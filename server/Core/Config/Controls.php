@@ -11,6 +11,7 @@ class Controls extends General
 			'action' => 'add',
 			'forUsual' => 1,
 			'forImmortal' => 1,
+			'forTreeView' => 1,
 		),
 		array(
 			'id' => 2,
@@ -18,6 +19,7 @@ class Controls extends General
 			'action' => 'change',
 			'forUsual' => 1,
 			'forImmortal' => 0,
+			'forTreeView' => 1,
 		),
 		array(
 			'id' => 3,
@@ -25,6 +27,7 @@ class Controls extends General
 			'action' => 'remove',
 			'forUsual' => 1,
 			'forImmortal' => 0,
+			'forTreeView' => 1,
 			'delimiter' => 1,
 		),
 		array(
@@ -33,6 +36,7 @@ class Controls extends General
 			'action' => 'copy',
 			'forUsual' => 1,
 			'forImmortal' => 0,
+			'forTreeView' => 1,
 		),
 		array(
 			'id' => 5,
@@ -40,6 +44,7 @@ class Controls extends General
 			'action' => 'paste',
 			'forUsual' => 1,
 			'forImmortal' => 1,
+			'forTreeView' => 1,
 			'delimiter' => 1,
 		),
 		array(
@@ -48,6 +53,7 @@ class Controls extends General
 			'action' => 'display_tree',
 			'forUsual' => 1,
 			'forImmortal' => 1,
+			'forTreeView' => 0,
 		),
 		
 	);

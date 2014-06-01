@@ -22,6 +22,9 @@ class Init extends \Core\Controller
 		$mdlStyle = new \Mdl\Style();
 		$response['styleList'] = $mdlStyle->all() ?: array();
 		
+		$mdlStyleGroup = new \Mdl\StyleGroup();
+		$response['styleGroupList'] = $mdlStyleGroup->all() ?: array();
+		
 		foreach($response['elementList'] as &$element) {
 			$element->attributeLinkList = $mdlElement->allLinks($element, $mdlAttribute) ?: array();
 			foreach($element->attributeLinkList as &$item) {

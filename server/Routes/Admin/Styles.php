@@ -4,14 +4,19 @@ namespace Routes\Admin;
 
 class Styles extends \Core\Controller
 {
-	public function index()
+	public function index($groupId = NULL)
 	{
+		$where = array();
+		$groupId && $where['style_group_id'] = intval($groupId);
 		$mdlStyle = new \Mdl\Style();
-		$list = $mdlStyle->all();
+		$mdlStyleGroup = new \Mdl\StyleGroup();
+		$list = $mdlStyle->all($where);
 		$page = new \Lib\Page();
 		$page->header(array('title' => 'Styles', 'menuItem' => 'Styles'))->body('Admin/Styles/index', array(
 			'list' => $list ?: array(),
 			'types' => $mdlStyle->types() ?: array(),
+			'styleGroups' => $mdlStyleGroup->all() ?: array(),
+			'groupId' => $groupId,
 			'base_url_segment_add' => \Helpers\Url::getBaseUrl() . '/admin/styles/add/',
 			'base_url_segment_change' => \Helpers\Url::getBaseUrl() . '/admin/styles/change/',
 		))->footer()->render();
@@ -24,6 +29,7 @@ class Styles extends \Core\Controller
 		$data['title'] = array_key_exists('title', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['title']) ? $_POST['title'] : NULL;
 		$data['type'] = array_key_exists('type', $_POST) && is_array($_POST['type']) && $mdlStyle->hasTypesMatch($_POST['type']) ? $_POST['type'] : NULL;
 		$data['name'] = array_key_exists('title', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['name']) ? $_POST['name'] : NULL;
+		$data['style_group_id'] = array_key_exists('style_group_id', $_POST) ? (int)$_POST['style_group_id'] : 0;
 		
 		$page = new \Lib\Page();
 		
@@ -68,6 +74,7 @@ class Styles extends \Core\Controller
 		$data['title'] = array_key_exists('title', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['title']) ? $_POST['title'] : NULL;
 		$data['type'] = array_key_exists('type', $_POST) && is_array($_POST['type']) && $mdlStyle->hasTypesMatch($_POST['type']) ? $_POST['type'] : NULL;
 		$data['name'] = array_key_exists('name', $_POST) && preg_match("/^[a-zA-Z\s0-9\-]+$/", $_POST['name']) ? $_POST['name'] : NULL;
+		$data['style_group_id'] = array_key_exists('style_group_id', $_POST) ? (int)$_POST['style_group_id'] : 0;
 		
 		$page = new \Lib\Page();
 		

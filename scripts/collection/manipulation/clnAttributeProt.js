@@ -9,14 +9,21 @@ define([
 		
 		model: mdlAttributeProt,
 		
-		validateCollection: function(options, callback) {
-			options = options || {};
-			if (!options.data) {
-				options.data = {};
-			}
+		validateCollection: function(callback) {
+			var _this = this;
+			var options = {};
+			options.data = {};
 			options.data.attributeList = this.toJSON();
 			options.success = function(errorIds){
-				console.log(errorIds);
+				errorIds = errorIds || [];
+				_this.each(function(val, key){
+					val.set('error', false);
+				});
+				_.each(errorIds, function(val, key){
+					var model = _this.get(val);
+					model.set('error', true);
+				});
+				callback(errorIds.length > 0);
 			};
 			Backbone.sync('validateCollection', this, options);
 		}

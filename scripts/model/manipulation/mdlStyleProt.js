@@ -10,7 +10,8 @@ define([
 		
 		defaults: {
 			design_style_id: null,
-			style_value: null
+			style_value: null,
+			error: null
 		},
 		
 		set: function(attributes, options) {

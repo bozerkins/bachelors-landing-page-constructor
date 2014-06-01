@@ -5,8 +5,9 @@ define([
 	'collection/structure/clnElementProt',
 	'collection/structure/clnAttributeProt',
 	'collection/structure/clnStyleProt',
+	'collection/structure/clnStyleGroupProt',
 	'core'
-], function(clnTreeProt, clnMouseMenuProt, clnGroupProt, clnElementProt, clnAttributeProt, clnStyleProt){
+], function(clnTreeProt, clnMouseMenuProt, clnGroupProt, clnElementProt, clnAttributeProt, clnStyleProt, clnStyleGroupProt){
 	var Model = Backbone.Model.extend({
 		url: 'server/index.php/ajax/init/',
 		idAttribute: 'timestamp',
@@ -30,6 +31,7 @@ define([
 			this.clnElementObj = new clnElementProt(response.elementList);
 			this.clnAttributeObj = new clnAttributeProt(response.attributeList);
 			this.clnStyleObj = new clnStyleProt(response.styleList);
+			this.clnStyleGroupObj = new clnStyleGroupProt(response.styleGroupList);
 			this.clnMouseMenuObj = new clnMouseMenuProt(response.actionList);
 			// link groups with elements
 			this.clnGroupObj.each(function(group){

@@ -2,8 +2,9 @@ define([
 	'view/viewAreaProt',
 	'view/viewMouseMenuProt',
 	'view/viewControlsProt',
+	'view/viewTreePreviewProt',
 	'core'
-], function(viewAreaProt, viewMouseMenuProt, viewControlsProt){
+], function(viewAreaProt, viewMouseMenuProt, viewControlsProt, viewTreePreviewProt){
 	var View = Backbone.View.extend({
 				
 		el: document.body,
@@ -22,6 +23,9 @@ define([
 			// depends on mouse menu
 			this.viewControlsObj = new viewControlsProt();
 			this.$el.append(this.viewControlsObj.$el);
+			// depends on area
+			this.viewTreePreviewObj = new viewTreePreviewProt();
+			this.$el.append(this.viewTreePreviewObj.$el);
 		},
 		
 		render: function(){

@@ -38,45 +38,65 @@ define([
 		},
 		
 		act: function(event) {
+			// perform action
 			var action = this.model.get('action');
-			var clickedParrent = Backbone.Config.view.viewAreaObj.getTargetModel();
+			var clickedElementModel = Backbone.Config.view.viewAreaObj.getTargetModel();
 			if (action === 'add') {
+				// hide tree if exists
+				Backbone.Config.view.viewTreePreviewObj.$el.is(':visible') && Backbone.Config.view.viewTreePreviewObj.$el.hide();
+				// perform add
 				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = new Backbone.Config.struct.clnTreeObj.model({
-					parent_element_id: clickedParrent ? clickedParrent.get('id'): null
+					parent_element_id: clickedElementModel ? clickedElementModel.get('id'): null
 				});
 				Backbone.Config.view.viewControlsObj.viewElementChoiceObj.render();
 				Backbone.Config.view.viewControlsObj.$el.show();
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			if (action === 'change') {
-				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
+				// hide tree if exists
+				Backbone.Config.view.viewTreePreviewObj.$el.is(':visible') && Backbone.Config.view.viewTreePreviewObj.$el.hide();
+				// perform change
+				Backbone.Config.struct.clnTreeObj.mdlIncompleteTreeItemObj = Backbone.Config.struct.clnTreeObj.get(clickedElementModel.get('id'));
 				Backbone.Config.view.viewControlsObj.viewAttributeChoiceObj.render();
 				Backbone.Config.view.viewControlsObj.$el.show();
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			if (action === 'remove') {
+				// redraw tree if exists
+				Backbone.Config.view.viewTreePreviewObj.$el.is(':visible') && Backbone.Config.view.viewTreePreviewObj.$el.hide();
+				// perform add
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 				if (confirm('Are you sure to delete this element and all the elements inside?')) {
-					var modelObject = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
+					var modelObject = Backbone.Config.struct.clnTreeObj.get(clickedElementModel.get('id'));
 					Backbone.Config.view.viewAreaObj.removeElementFromTree(modelObject);
 				}
 			}
 			if (action === 'copy') {
-				var prototypeElementObj = Backbone.Config.struct.clnTreeObj.get(clickedParrent.get('id'));
+				var prototypeElementObj = Backbone.Config.struct.clnTreeObj.get(clickedElementModel.get('id'));
 				Backbone.Config.struct.clnTreeObj.mdlPrototypeTreeItemObj = prototypeElementObj;
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			if (action === 'paste') {
+				// redraw tree if exists
+				Backbone.Config.view.viewTreePreviewObj.$el.is(':visible') && Backbone.Config.view.viewTreePreviewObj.$el.hide();
+				// perform paste
 				var modelObject = Backbone.Config.struct.clnTreeObj.mdlPrototypeTreeItemObj;
 				if (modelObject) {
 					modelObject.createClone({
-						data: {parent_element_id: clickedParrent ? clickedParrent.get('id'): null}
+						data: {parent_element_id: clickedElementModel ? clickedElementModel.get('id'): null}
 					}, function(models){
 							_.each(models, function(mdlRecentlyCloned, key){
 								Backbone.Config.view.viewAreaObj.addElementToTree(mdlRecentlyCloned);
 							});
 						});
 				}
+				Backbone.Config.view.viewMouseMenuObj.$el.hide();
+			}
+			
+			if (action === 'display_tree') {
+				Backbone.Config.view.viewTreePreviewObj.drawTree();
+				Backbone.Config.view.viewTreePreviewObj.drawSelection(clickedElementModel ? clickedElementModel : null);
+				Backbone.Config.view.viewTreePreviewObj.$el.show();
 				Backbone.Config.view.viewMouseMenuObj.$el.hide();
 			}
 			event.preventDefault();

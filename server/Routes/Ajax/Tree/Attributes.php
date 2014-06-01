@@ -45,6 +45,9 @@ class Attributes extends \Core\Controller
 			if (!in_array($attribute['type'], $mdlAttribute->types())) {
 				continue;
 			}
+			if (!$attribute['attribute_value']) {
+				continue;
+			}
 			$attributeTypeObject = $mdlAttribute->getTypeObject($attribute['type']);
 			if (!$attributeTypeObject->validate($attribute['attribute_value'])) {
 				$invalidAttributeIds[] = $attribute['design_attribute_id'];

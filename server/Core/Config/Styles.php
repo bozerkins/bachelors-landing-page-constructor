@@ -6,10 +6,19 @@ class Styles extends General
 {
 	protected $storage = array(
 		'types' => array(
-			'Pixel',
-			'Percentage', 
-			'ImageSource',
 			'None',
+			'Number',
+			'Pixel',
+			'Color',
+			'FontFamily',
+			'Visibility',
+			'Percentage', 
+			'Align',
+			'Auto',
+			'Float',
+			'Line',
+			'Overflow',
+			'ImageSource',
 		),
 	);
 }
