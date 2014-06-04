@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class Styles extends \Core\Controller
+class Styles extends \Core\ControllerAdmin
 {
 	public function index($groupId = NULL)
 	{
@@ -19,6 +19,7 @@ class Styles extends \Core\Controller
 			'groupId' => $groupId,
 			'base_url_segment_add' => \Helpers\Url::getBaseUrl() . '/admin/styles/add/',
 			'base_url_segment_change' => \Helpers\Url::getBaseUrl() . '/admin/styles/change/',
+			'base_url_segment_delete' => \Helpers\Url::getBaseUrl() . '/admin/styles/delete/',
 		))->footer()->render();
 	}
 	
@@ -99,6 +100,18 @@ class Styles extends \Core\Controller
 		
 		$mdlStyle->update($id, $data);
 		$page->addSuccess('Record changed');
+		\Helpers\Url::redirectBack();
+		return;
+	}
+	
+	public function delete($id)
+	{
+		$id = intval($id);
+		$model = new \Mdl\Style();
+		$model->delete($id);
+		
+		$page = new \Lib\Page();
+		$page->addSuccess('Record successfully deleted');
 		\Helpers\Url::redirectBack();
 		return;
 	}

@@ -40,6 +40,7 @@
 				</select>
 			 <label for="inputEmail3"> Name:&nbsp;</label><input type="text" name="name" class="form-control"  placeholder="Name" value="<?=$item->name; ?>">
 		  <button type="submit" class="btn btn-default">Save</button>
+		  <a href="<?=$base_url_segment_delete . $item->id; ?>" class="btn-delete"><button type="button" class="btn btn-default">Delete</button></a>
 		  </div>
 		</form>
 	</div>

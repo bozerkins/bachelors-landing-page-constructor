@@ -8,8 +8,10 @@ class Styles extends General
 		'types' => array(
 			'None',
 			'Number',
+			'FloatNumber',
 			'Pixel',
 			'Color',
+			'YesNo',
 			'FontFamily',
 			'Visibility',
 			'Percentage', 
@@ -19,6 +21,7 @@ class Styles extends General
 			'Line',
 			'Overflow',
 			'ImageSource',
+			'BgSize',
 		),
 	);
 }

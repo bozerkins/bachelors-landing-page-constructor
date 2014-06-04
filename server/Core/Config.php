@@ -14,6 +14,7 @@ class Config
 		$this->applyConfig('Attributes');
 		$this->applyConfig('Styles');
 		$this->applyConfig('Controls');
+		$this->applyConfig('Auth');
 	}
 	
 	protected function applyConfig($name)

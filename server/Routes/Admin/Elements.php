@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class Elements extends \Core\Controller
+class Elements extends \Core\ControllerAdmin
 {
 	public function index()
 	{
@@ -43,6 +43,7 @@ class Elements extends \Core\Controller
 			'list' => $list ?: array(),
 			'base_url_segment_add' => \Helpers\Url::getBaseUrl() . '/admin/elements/add/',
 			'base_url_segment_change' => \Helpers\Url::getBaseUrl() . '/admin/elements/change/',
+			'base_url_segment_delete' => \Helpers\Url::getBaseUrl() . '/admin/elements/delete/',
 		))->footer()->render();
 	}
 	
@@ -104,6 +105,18 @@ class Elements extends \Core\Controller
 		
 		$mdlElement->update($id, $data);
 		$page->addSuccess('Record saved');
+		\Helpers\Url::redirectBack();
+		return;
+	}
+	
+	public function delete($id)
+	{
+		$id = intval($id);
+		$model = new \Mdl\Element();
+		$model->delete($id);
+		
+		$page = new \Lib\Page();
+		$page->addSuccess('Record successfully deleted');
 		\Helpers\Url::redirectBack();
 		return;
 	}

@@ -2,7 +2,7 @@
 
 namespace Routes\Ajax\Tree;
 
-class Attributes extends \Core\Controller
+class Attributes extends \Core\ControllerAjax
 {
 	public function update()
 	{

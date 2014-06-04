@@ -2,7 +2,7 @@
 
 namespace Routes\Admin\Linking;
 
-class Attributes extends \Core\Controller
+class Attributes extends \Core\ControllerAdmin
 {
 	public function view($id) 
 	{

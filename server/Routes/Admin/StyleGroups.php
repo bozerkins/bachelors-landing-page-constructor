@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class StyleGroups extends \Core\Controller
+class StyleGroups extends \Core\ControllerAdmin
 {
 	public function index()
 	{
@@ -13,6 +13,7 @@ class StyleGroups extends \Core\Controller
 			'list' => $list ?: array(),
 			'base_url_segment_add' => \Helpers\Url::getBaseUrl() . '/admin/stylegroups/add/',
 			'base_url_segment' => 'admin/styles/',
+			'base_url_segment_delete' => \Helpers\Url::getBaseUrl() . '/admin/stylegroups/delete/',
 		))->footer()->render();
 	}
 	
@@ -36,6 +37,18 @@ class StyleGroups extends \Core\Controller
 		
 		$mdlStyleGroup->insert($data);
 		$page->addSuccess('Record added');
+		\Helpers\Url::redirectBack();
+		return;
+	}
+	
+	public function delete($id)
+	{
+		$id = intval($id);
+		$model = new \Mdl\StyleGroup();
+		$model->delete($id);
+		
+		$page = new \Lib\Page();
+		$page->addSuccess('Record successfully deleted');
 		\Helpers\Url::redirectBack();
 		return;
 	}

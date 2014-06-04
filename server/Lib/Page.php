@@ -13,22 +13,8 @@ class Page extends \Core\General
 	protected $footerTemplate = 'footer.php';
 	protected $bodyOptions = NULL;
 	protected $bodyTemplate = NULL;
-	
-	public function __construct()
-	{
-		$this->errorHandler = new Page\Error();
-	}
-	
-	public function header($options = array())
-	{
-		if (!array_key_exists('title', $options)) {
-			$options['title'] = self::DEFAULT_TITLE;
-		}
-		if (!array_key_exists('menuItem', $options)) {
-			$options['menuItem'] = 'Overview';
-		}
-		$this->headerOptions = $options;
-		$this->headerOptions['menu'] = array(
+	protected $userLogin = NULL;
+	protected $menuOptions = array(
 			array(
 				'Groups' => 'admin/groups',
 				'Elements' => 'admin/elements',
@@ -40,8 +26,28 @@ class Page extends \Core\General
 				'Linking' => 'admin/linking/view/0',
 			),
 		);
+	
+	public function __construct()
+	{
+		$this->errorHandler = new Page\Error();
+		$authObject = new \Lib\Auth();
+		$this->userLogin = $authObject->check() ? $authObject->getLogin() : NULL;
+	}
+	
+	public function header($options = array())
+	{
+		if (!array_key_exists('title', $options)) {
+			$options['title'] = self::DEFAULT_TITLE;
+		}
+		if (!array_key_exists('menuItem', $options)) {
+			$options['menuItem'] = 'Overview';
+		}
+		$this->headerOptions = $options;
+		$this->headerOptions['menu'] = $this->menuOptions;
 		$this->headerOptions['base_script_url'] = \Helpers\Url::getBaseUrl() . '/../';
+		$this->headerOptions['user_login'] = $this-> userLogin;
 		$this->headerOptions['base_url'] = \Helpers\Url::getBaseUrl() . '/';
+		$this->headerOptions['base_url_segment_logout'] = 'auth/logout';
 		$this->headerOptions['errors'] = $this->errorHandler->get('errors') ?: array();
 		$this->headerOptions['messages'] = $this->errorHandler->get('messages') ?: array();
 		$this->headerOptions['successes'] = $this->errorHandler->get('successes') ?: array();

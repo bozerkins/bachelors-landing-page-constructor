@@ -18,6 +18,7 @@
 			  <label for="inputEmail3"> Title:&nbsp;</label><input type="text" name="title" class="form-control"  placeholder="Title" value="<?=$item->title; ?>">
 			 <label for="inputEmail3"> Tag:&nbsp;</label><input type="text" name="tag" class="form-control"  placeholder="Title" value="<?=$item->tag; ?>">
 		  <button type="submit" class="btn btn-default">Save</button>
+		  <a href="<?=$base_url_segment_delete . $item->id; ?>" class="btn-delete"><button type="button" class="btn btn-default">Delete</button></a>
 		  </div>
 		</form>
 	</div>

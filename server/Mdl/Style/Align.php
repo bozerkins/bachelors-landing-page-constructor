@@ -2,12 +2,12 @@
 
 namespace Mdl\Style;
 
-class Line extends General
+class Align extends General
 {
 	public $lines = array(
 		'left',
 		'right',
-		'middle',
+		'center',
 	);
 	
 	public function validate($value)

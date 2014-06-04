@@ -26,6 +26,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body>
 	  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,12 +40,14 @@
           </button>
           <a class="navbar-brand" href="#" id="rapid-design-logo">Rapid Design</a>
         </div>
-        <p class="navbar-text navbar-right">Greetings <a href="#" class="navbar-link">Bogdans Ozerkins</a>!</p>
+        <p class="navbar-text navbar-right">Greetings <?=$user_login; ?>!&nbsp;&nbsp;&nbsp;
+		<a href="<?=$base_url . $base_url_segment_logout; ?>" class="navbar-link">Logout</a></p>
       </div>
     </div>
 
     <div class="container-fluid">
       <div class="row">
+		<?php if ($menu) : ?>
         <div class="col-sm-3 col-md-2 sidebar" id="main-menu">
 		<?php foreach($menu as $group) : ?>
 			<ul class="nav nav-sidebar">
@@ -54,6 +57,7 @@
 			</ul>
 		<?php endforeach; ?>
         </div>
+		<?php endif; ?>
 		  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		  <?php foreach($errors as $message) : ?>
 			  <div class="alert alert-warning"><?=$message; ?></div>

@@ -5,21 +5,79 @@ namespace Core\Config;
 class Routes extends General
 {
 	protected $storage = array(
-		'/hello/:name' => array(
-			'Development',
-			'hello',
+		// Authentication
+		
+		'/auth' => array(
+			'Auth',
+			'index',
+		),
+		'/auth/login' => array(
+			'Auth',
+			'login',
+			'post',
+		),
+		'/auth/logout' => array(
+			'Auth',
+			'logout',
+		),
+		'/admin/auth' => array(
+			'Admin.Auth',
+			'index',
+		),
+		'/admin/auth/login' => array(
+			'Admin.Auth',
+			'login',
+			'post',
+		),
+		
+		// pages
+
+		'/pages/' => array(
+			'Pages',
+			'index',
+		),
+		'/pages/add' => array(
+			'Pages',
+			'add',
+			'post',
+		),
+		'/pages/update/:num' => array(
+			'Pages',
+			'update',
+			'post',
+		),
+		'/pages/delete/:num' => array(
+			'Pages',
+			'delete',
+		),
+		
+		// other
+		
+		'/sessionkeepup' => array(
+			'SesKepUp',
+			'index',
 		),
 		'/' => array(
-			'Admin.Overview',
+			'Auth',
 			'index',
 		),
 		'/admin' => array(
-			'Admin.Overview',
+			'Admin.Auth',
 			'index',
 		),
 		'/admin/groups' => array(
 			'Admin.Groups',
 			'index',
+		),
+		
+		'/admin/groups/add' => array(
+			'Admin.Groups',
+			'add',
+			'post'
+		),
+		'/admin/groups/delete/:num' => array(
+			'Admin.Groups',
+			'delete',
 		),
 		'/admin/stylegroups' => array(
 			'Admin.StyleGroups',
@@ -29,6 +87,10 @@ class Routes extends General
 			'Admin.StyleGroups',
 			'add',
 			'post',
+		),
+		'/admin/stylegroups/delete/:num' => array(
+			'Admin.StyleGroups',
+			'delete',
 		),
 		'/admin/elements' => array(
 			'Admin.Elements',
@@ -48,6 +110,10 @@ class Routes extends General
 			'change',
 			'post',
 		),
+		'/admin/elements/delete/:num' => array(
+			'Admin.Elements',
+			'delete',
+		),
 		'/admin/attributes' => array(
 			'Admin.Attributes',
 			'index',
@@ -61,6 +127,10 @@ class Routes extends General
 			'Admin.Attributes',
 			'change',
 			'post',
+		),
+		'/admin/attributes/delete/:num' => array(
+			'Admin.Attributes',
+			'delete',
 		),
 		'/admin/styles' => array(
 			'Admin.Styles',
@@ -80,6 +150,10 @@ class Routes extends General
 			'change',
 			'post',
 		),
+		'/admin/styles/delete/:num' => array(
+			'Admin.Styles',
+			'delete',
+		),
 		'/admin/linking/view/:num' => array(
 			'Admin.Linking',
 			'view',
@@ -87,21 +161,6 @@ class Routes extends General
 		'/admin/linking/add/:num' => array(
 			'Admin.Linking',
 			'add',
-			'post',
-		),
-		'/ajax/controls/read' => array(
-			'Ajax.Controls',
-			'read',
-			'post',
-		),
-		'/ajax/groups/read' => array(
-			'Ajax.Groups',
-			'read',
-			'post',
-		),
-		'/ajax/attributes/read' => array(
-			'Ajax.Attributes',
-			'read',
 			'post',
 		),
 		'/ajax/init/read' => array(

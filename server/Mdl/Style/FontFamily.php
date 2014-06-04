@@ -2,10 +2,10 @@
 
 namespace Mdl\Style;
 
-class Color extends General
+class FontFamily extends General
 {
 	public function validate($value)
 	{
-		return preg_match("/^[a-zA-Z\s\.]+$/", $value);
+		return preg_match("/^[a-zA-Z\s\.\-\,0-9]+$/", $value);
 	}
 }

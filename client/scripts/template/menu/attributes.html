@@ -1,0 +1,23 @@
+<ul class="nav nav-tabs menu-attributes-nav">
+  <li class="active"><a href="#" class="menu-controls-tab-attributes">Attributes</a></li>
+  <li><a href="#" class="menu-controls-tab-styles">Styles</a></li>
+</ul>
+<form class="form-inline" role="form">
+	<% _.each(attrList, function(item, key) { %>
+	  <div class="form-group form-padding has-feedback <%=item.error ? 'has-error' : '' %>">
+		  <label><%=item.title%></label><br>
+		  <% if (item.name !== 'text') { %>
+		  <input type="text" value="<%=item.attribute_value%>" data-id="<%=item.design_attribute_id%>" 
+				 class="form-control menu-attributes-form-item" placeholder="Enter <%=item.title%>">
+		  <% } else { %>
+		  <textarea class="form-control menu-attributes-form-item" rows="3" 
+					data-id="<%=item.design_attribute_id%>" placeholder="Enter <%=item.title%>"><%=item.attribute_value%></textarea>
+		  <% } %>
+	  </div>
+	<% }); %>
+	<div  class="form-padding">
+		<button type="button" class="btn btn-default menu-attributes-form-apply">Apply</button>
+		<button type="button" class="btn btn-default menu-attributes-form-next">Next</button>
+		<button type="button" class="btn btn-default menu-attributes-form-save">Save</button>
+	</div>
+</form>

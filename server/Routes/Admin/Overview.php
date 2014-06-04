@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class Overview extends \Core\Controller
+class Overview extends \Core\ControllerAdmin
 {
 	public function index()
 	{

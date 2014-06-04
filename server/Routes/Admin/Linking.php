@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class Linking extends \Core\Controller
+class Linking extends \Core\ControllerAdmin
 {
 	public function view($id)
 	{

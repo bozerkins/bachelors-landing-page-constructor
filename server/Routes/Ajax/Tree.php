@@ -2,7 +2,7 @@
 
 namespace Routes\Ajax;
 
-class Tree extends \Core\Controller
+class Tree extends \Core\ControllerAjax
 {
 	public function create()
 	{
@@ -14,6 +14,7 @@ class Tree extends \Core\Controller
 		$elementId = $mdlElement->insert(array(
 			'design_element_id' => $designElementId,
 			'parent_element_id' => $parentElementId,
+			'page_id' => $this->pageId,
 		));
 		$ajax->response($elementId)->render();
 	}
@@ -41,7 +42,7 @@ class Tree extends \Core\Controller
 		$record->parent_element_id = NULL;
 		
 		// build tree with id - keys
-		$treeElementList = $mdlTreeElement->allTreeOrder($record->id) ?: array();
+		$treeElementList = $mdlTreeElement->allTreeOrder($this->pageId, $record->id) ?: array();
 		array_unshift($treeElementList, $record);
 		$treeElementList = array_combine(array_map(array($mdlTreeElement, 'mapId'), $treeElementList), $treeElementList);
 		
@@ -64,6 +65,7 @@ class Tree extends \Core\Controller
 			$cloneElementInfo = array(
 				'design_element_id' => $treeElementInfo->design_element_id,
 				'parent_element_id' => $treeParentElementInfo ? $treeParentElementInfo->id : 0,
+				'page_id' => $this->pageId,
 			);
 			// create element
 			$treeElementInfo->id = $mdlTreeElement->insert($cloneElementInfo);

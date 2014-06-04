@@ -2,7 +2,7 @@
 
 namespace Routes\Admin;
 
-class Attributes extends \Core\Controller
+class Attributes extends \Core\ControllerAdmin
 {
 	public function index()
 	{
@@ -14,6 +14,7 @@ class Attributes extends \Core\Controller
 			'types' => $mdlAttribute->types() ?: array(),
 			'base_url_segment_add' => \Helpers\Url::getBaseUrl() . '/admin/attributes/add/',
 			'base_url_segment_change' => \Helpers\Url::getBaseUrl() . '/admin/attributes/change/',
+			'base_url_segment_delete' => \Helpers\Url::getBaseUrl() . '/admin/attributes/delete/',
 		))->footer()->render();
 	}
 	
@@ -92,6 +93,18 @@ class Attributes extends \Core\Controller
 		
 		$mdlAttribute->update($id, $data);
 		$page->addSuccess('Record changed');
+		\Helpers\Url::redirectBack();
+		return;
+	}
+	
+	public function delete($id)
+	{
+		$id = intval($id);
+		$model = new \Mdl\Attribute();
+		$model->delete($id);
+		
+		$page = new \Lib\Page();
+		$page->addSuccess('Record successfully deleted');
 		\Helpers\Url::redirectBack();
 		return;
 	}

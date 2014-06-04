@@ -2,7 +2,7 @@
 
 namespace Routes\Ajax;
 
-class Init extends \Core\Controller
+class Init extends \Core\ControllerAjax
 {
 	public function read()
 	{
@@ -41,7 +41,7 @@ class Init extends \Core\Controller
 		$mdlTreeElementMdl = new \Mdl\Tree\Element();
 		$mdlTreeAttributeMdl = new \Mdl\Tree\Attribute();
 		$mdlTreeStyleMdl = new \Mdl\Tree\Style();
-		$treeElements = $mdlTreeElementMdl->allTreeOrder() ?: array();
+		$treeElements = $mdlTreeElementMdl->allTreeOrder($this->pageId) ?: array();
 		foreach($treeElements as &$treeElement) {
 			$treeElement->attributeList = $mdlTreeAttributeMdl->all(array(
 				'element_id' => $treeElement->id,

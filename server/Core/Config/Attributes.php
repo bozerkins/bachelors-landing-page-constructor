@@ -9,6 +9,8 @@ class Attributes extends General
 			'Label',
 			'InputType', 
 			'ImageSource',
+			'Text',
+			'Target',
 		),
 	);
 }
