@@ -1,0 +1,3 @@
+A basic landing page constructor. 
+Supports preset HTML/CSS understanding and configurations. Stores pages as data structures.
+Possible page export.
